@@ -1,9 +1,9 @@
 from Model import Model
 from utils import *
-from keras.models import Sequential, load_model
-from keras.layers import Dense, Activation, Embedding, Flatten
-from keras.layers import LSTM, Input, GRU
-from keras import optimizers
+from tensorflow.keras.models import Sequential, load_model
+from tensorflow.keras.layers import Dense, Activation, Embedding, Flatten
+from tensorflow.keras.layers import LSTM, Input, GRU
+from tensorflow.keras import optimizers
 from sklearn.decomposition import PCA
 import numpy as np
 
