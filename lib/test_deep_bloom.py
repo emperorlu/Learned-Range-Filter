@@ -51,6 +51,7 @@ def test_gru_model(positives, negatives, model, train_dev_fraction=0.9, deeper_b
     print("Number test", len(test_negatives))
     print("Number positives ", len(positives))
 
+
     data = Data(positives, train_dev_negatives)
     if not deeper_bloom:
         db = DeepBloom(model, data, fp_rate)
@@ -64,7 +65,7 @@ def test_gru_model(positives, negatives, model, train_dev_fraction=0.9, deeper_b
         print("Total params", total)
     print("Bloom filter bits needed", db.bloom_filter.size)
     # for positive in positives:
-    #     assert(db.check(positive))
+    #     assert(db.check(positive)) 
 
     # false_positives = 0.0
     # for negative in data.negatives:
@@ -74,6 +75,8 @@ def test_gru_model(positives, negatives, model, train_dev_fraction=0.9, deeper_b
 
     false_positives = 0.0
     for neg in test_negatives:
+        print("neg: ",neg)
+        print("db.check(neg): ",db.check(neg))
         if db.check(neg):
             false_positives += 1
     print("Test false positive rate: ", str(false_positives / len(test_negatives)))

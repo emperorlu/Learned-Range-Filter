@@ -15,15 +15,18 @@ def sample_show():
     dx = 0.01
     X  = np.arange(-2, 2, dx)
     Y  = exp(-X ** 2)
+    # Y = 2 * X
 
     # Normalize the data to a proper PDF
-    Y /= (dx * Y).sum()
+    # Y /= (dx * Y).sum()
+    PY = Y / ((dx * Y).sum())
 
     # Compute the CDF
     CY = np.cumsum(Y * dx)
 
     # Plot both
     plot(X, Y)
+    plot(X, PY, 'y')
     plot(X, CY, 'r--')
 
     show()
