@@ -94,7 +94,7 @@ class GRUModel(Model):
 		]
 	
 		self.model = Sequential(layers)
-		optimizer = optimizers.Adam(lr=self.lr, decay=self.decay)
+		optimizer = optimizers.Adam(learning_rate=self.lr, decay=self.decay)
 		self.model.compile(optimizer=optimizer, loss='binary_crossentropy', metrics=['accuracy'])
 
 		self.model.fit(X, y, batch_size=self.batch_size, epochs=self.epochs, verbose=2)
