@@ -73,17 +73,17 @@ def test_gru_model(positives, negatives, model, train_dev_fraction=0.9, deeper_b
     #         false_positives += 1
     # print("Train/dev false Positive Rate: " + str(false_positives / len(train_dev_negatives)))
 
-    # false_positives = 0.0
-    # num = 0
-    # print(len(test_negatives))
-    # for neg in test_negatives:
-    #     print("num: ",num)
-    #     # print("db.check(neg): ",db.check(neg))
-    #     num += 1
-    #     if db.check(neg):
-    #         print("db.check(neg): ",db.check(neg))
-    #         false_positives += 1
-    # print("Test false positive rate: ", str(false_positives / len(test_negatives)))
+    false_positives = 0.0
+    num = 0
+    print(len(test_negatives))
+    for neg in test_negatives:
+        print("num: ",num)
+        # print("db.check(neg): ",db.check(neg))
+        num += 1
+        if db.check(neg):
+            print("db.check(neg): ",db.check(neg))
+            false_positives += 1
+    print("Test false positive rate: ", str(false_positives / len(test_negatives)))
 
 
 def test_deeper_bloom(positives, negatives):
