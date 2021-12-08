@@ -77,7 +77,7 @@ def test_gru_model(positives, negatives, model, train_dev_fraction=0.9, deeper_b
     num = 0
     print(len(test_negatives))
     for neg in test_negatives:
-        if num%1000:
+        if num%1000 == 0:
             print("num: ",num)
         # print("db.check(neg): ",db.check(neg))
         num += 1
