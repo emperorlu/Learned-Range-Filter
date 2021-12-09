@@ -86,7 +86,6 @@ def test_gru_model(positives, negatives, model, train_dev_fraction=0.9, deeper_b
             false_positives += 1
     print("Test false positive rate: ", str(false_positives / len(test_negatives)))
 
-
 def test_deeper_bloom(positives, negatives):
     fp_rate = 0.01
 
