@@ -95,6 +95,7 @@ def test_deeper_bloom(positives, negatives):
     print("Number test", len(test_negatives))
     print("Number positives ", len(positives))
 
+    
     data = Data(positives, train_dev_negatives)
 
     db = DeeperBloom([AlmostPerfectModel(.2), AlmostPerfectModel(.2), AlmostPerfectModel(.2), AlmostPerfectModel(.2)], data, fp_rate)
