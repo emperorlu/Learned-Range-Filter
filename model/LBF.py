@@ -6,14 +6,14 @@ import os
 from tqdm.notebook import tqdm
 from sklearn.metrics import classification_report,accuracy_score
 import pandas as pd
-from keras.preprocessing.text import Tokenizer
-from keras.preprocessing.sequence import pad_sequences
+from tensorflow.keras.preprocessing.text import Tokenizer
+from tensorflow.keras.preprocessing.sequence import pad_sequences
 from sklearn.model_selection import train_test_split
-from keras.layers import Input, Embedding, Activation, Flatten, Dense
-from keras.layers import Conv1D, MaxPooling1D, Dropout
-from keras.models import Model
+from tensorflow.keras.layers import Input, Embedding, Activation, Flatten, Dense
+from tensorflow.keras.layers import Conv1D, MaxPooling1D, Dropout
+from tensorflow.keras.models import Model
 from copy import deepcopy
-from keras.utils import to_categorical
+from tensorflow.keras.utils import to_categorical
 import plotly.graph_objects as go
 import matplotlib.pyplot as plt
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
@@ -78,7 +78,7 @@ def main():
     char_dict = {}
     for i, char in enumerate(alphabet):
         char_dict[char] = i + 1
-        
+
     tk.word_index = char_dict.copy()
     tk.word_index[tk.oov_token] = max(char_dict.values()) + 1
     train_texts = tk.texts_to_sequences(train_texts)
