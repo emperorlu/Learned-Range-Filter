@@ -11,7 +11,7 @@ print(X)
 y =  np.array([x  for x in np.random.randint(0,2,a)])
 print(y)
 
-sx=np.linspace(1,a+1,a+2)
+sx=np.linspace(1,a,a+2)
 func2=interpolate.UnivariateSpline(X,y,s=8)
 sy=func2(sx)
 
