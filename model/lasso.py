@@ -33,12 +33,12 @@ maxX = max(datasets_X)
 X = np.arange(minX,maxX).reshape([-1,1])
 
 
-poly_reg = PolynomialFeatures(degree = b)
-X_poly = poly_reg.fit_transform(datasets_X)
+# poly_reg = PolynomialFeatures(degree = b)
+# X_poly = poly_reg.fit_transform(datasets_X)
 # lin_reg_2 = linear_model.LinearRegression()
 # lin_reg_2.fit(X_poly, datasets_Y)
 lin_reg_2=Lasso(alpha=10,max_iter=0)
-lin_reg_2.fit(X_poly,datasets_Y)
+lin_reg_2.fit(datasets_X,datasets_Y)
 
 plt.scatter(datasets_X, datasets_Y, color = 'red')
 plt.plot(X, lin_reg_2.predict(poly_reg.fit_transform(X)), color = 'blue')
