@@ -46,6 +46,67 @@ def gen_data():
         data.append([X[i], y[i]])
     return data
 
+def test_model(tk, model, test_texts):
+  test_texts = [s.lower() for s in test_texts]
+  test_texts = tk.texts_to_sequences(test_texts)
+  test_data = pad_sequences(test_texts, maxlen=1014, padding='post')
+  test_data = np.array(test_data, dtype='float32')
+  y =  model.predict(test_data)
+  ans =[]
+  for f in y:
+      ans.append(f[1])
+  return ans
+
+def Train_Bloom2(bloom,train_features, train_labels ,tau):
+    # gen_data()
+    X_train=train_features
+    y_train=train_labels
+    # model.fit(X_train, y_train, epochs=2, batch_size=256,verbose=1)
+    preds=test_model(X_train)
+    for i in range(len(preds)):
+        if preds[i]<tau:
+            if y_train[i]==1:
+                bloom.add(str(X_train[i]))
+    return bloom
+
+def Test_SLBF(model,bloom1,bloom2,data,tau,prediction):
+    output1=[]
+    for i in range(len(data)):
+        #Bloom1
+        if str(data[i]) not in bloom1:
+            output1.append(0)
+            continue
+        #Model
+        if prediction[i]>tau:
+            output1.append(1)
+        elif str(data[i]) in bloom2:
+            output1.append(1)
+        else:
+            output1.append(0)
+    return np.array(output1)
+
+def Test_NLBF(model,bloom2,data,tau,prediction):
+    output1=[]
+    for i in range(len(data)):
+        #Bloom1
+        if prediction[i]>tau:
+            output1.append(1)
+        elif str(data[i]) in bloom2:
+            output1.append(1)
+        else:
+            output1.append(0)
+    return np.array(output1)
+
+def Test_BF(bloom1, test_data):
+  y_pred_bloom = []
+  for i in test_data:
+    if str(i) in bloom1:
+      y_pred_bloom.append(1)
+    else:
+      y_pred_bloom.append(0)
+  y_pred_bloom = np.array(y_pred_bloom)
+  return y_pred_bloom
+
 def main():
     data = gen_data()
     train_features = np.array([str(i[0]) for i in data])
@@ -145,6 +206,65 @@ def main():
             batch_size=256,
             epochs=1,
             verbose=2)
+
+    error_rates = [0.01*i for i in range(1,11)]
+    tau = 0.9
+    accuracies = []
+    for er in tqdm(range(len(error_rates))):
+    classifier_data = []
+    bloom1 = BloomFilter(max_elements=25000, error_rate=error_rates[er])
+    bloom2 = BloomFilter(max_elements=25000, error_rate=error_rates[er])
+
+    for data_point in data:
+        if data_point[1]==1:
+            bloom1.add(data_point[0])
+            
+    for data_point in data:
+        if data_point[0] in bloom1:
+            classifier_data.append(data_point)
+
+    bloom2=Train_Bloom2(bloom2,train_features, train_labels,tau)
+    test_data = data.copy()
+    y = np.array([i[1] for i in test_data])
+    test_data = np.array([test_data[i][0] for i in range(len(test_data))])
+    prediction = test_model(test_data)
+    # The model is tested on the entire dataset and its prediction is stored for further use
+    y_pred_sandwich = Test_SLBF(model,bloom1,bloom2,test_data,tau,prediction)
+    y_pred_normal= Test_NLBF(model,bloom2,test_data,tau,prediction)
+    y_pred_bloom = Test_BF(bloom1,test_data)
+    accuracies.append([accuracy_score(y,y_pred_sandwich),accuracy_score(y, y_pred_normal), accuracy_score(y,y_pred_bloom)])
+
+    print(accuracies)
+    sandwich = []
+    normal = []
+    bloom = []
+    for i in range(len(error_rates)):
+    sandwich.append(100*accuracies[i][0])
+    normal.append(100*accuracies[i][1])
+    bloom.append(100*accuracies[i][2])
+    t = error_rates
+    fig = go.Figure()
+    # Add traces
+    fig.add_trace(go.Scatter(x=t, y=sandwich,
+                        mode='lines',
+                        name='sandwich'))
+    fig.add_trace(go.Scatter(x=t, y=normal,
+                        mode='lines',
+                        name='regular'))
+    fig.add_trace(go.Scatter(x=t, y=bloom,
+                        mode='lines',
+                        name='bloom'))
+
+    fig.update_layout(
+        title="Comparision of Learned Bloom Filters",
+        xaxis_title="Error Rate of Bloom",
+        yaxis_title="Accuracy",
+        height = 720,
+        width = 1280
+    )
+    fig.show()
+
+
 
 if __name__ == "__main__":
     main()
