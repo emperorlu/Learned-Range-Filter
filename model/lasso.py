@@ -37,7 +37,7 @@ poly_reg = PolynomialFeatures(degree = b)
 X_poly = poly_reg.fit_transform(datasets_X)
 # lin_reg_2 = linear_model.LinearRegression()
 # lin_reg_2.fit(X_poly, datasets_Y)
-lin_reg_2=Lasso(alpha=100,max_iter=10)
+lin_reg_2=Lasso(alpha=100,max_iter=0)
 lin_reg_2.fit(X_poly,datasets_Y)
 
 plt.scatter(datasets_X, datasets_Y, color = 'red')
