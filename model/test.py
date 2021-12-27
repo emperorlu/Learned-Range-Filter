@@ -2,9 +2,9 @@ import matplotlib.pyplot as plt
 import numpy as np
 from sklearn import linear_model
 from sklearn.preprocessing import PolynomialFeatures
-X = [x  for x in np.arange(1,21)]
+X = [x  for x in np.arange(1,101)]
 print(X)
-y = [x  for x in np.random.randint(0,2,20)]
+y = [x  for x in np.random.randint(0,2,100)]
 print(y)
 
 datasets_X = X
