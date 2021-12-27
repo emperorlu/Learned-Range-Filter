@@ -1,7 +1,8 @@
 import matplotlib.pyplot as plt
 import numpy as np
-from sklearn import linear_model
+# from sklearn import linear_model
 from sklearn.preprocessing import PolynomialFeatures
+from sklearn.linear_model import Lasso
 import sys
 
 a = int(sys.argv[1])  
@@ -34,12 +35,14 @@ X = np.arange(minX,maxX).reshape([-1,1])
 
 poly_reg = PolynomialFeatures(degree = b)
 X_poly = poly_reg.fit_transform(datasets_X)
-lin_reg_2 = linear_model.LinearRegression()
-lin_reg_2.fit(X_poly, datasets_Y)
+# lin_reg_2 = linear_model.LinearRegression()
+# lin_reg_2.fit(X_poly, datasets_Y)
+lin_reg_2=Lasso(alpha=10,max_iter=0)
+lin_reg_2.fit(X_poly,datasets_Y)
 
 plt.scatter(datasets_X, datasets_Y, color = 'red')
 plt.plot(X, lin_reg_2.predict(poly_reg.fit_transform(X)), color = 'blue')
-plt.xlabel('Area')
-plt.ylabel('Price')
-plt.savefig("test.png")
+plt.xlabel('key')
+plt.ylabel('score')
+plt.savefig("lasso.png")
 plt.show()
