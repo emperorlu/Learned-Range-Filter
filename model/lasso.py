@@ -24,9 +24,9 @@ datasets_Y = y
 #     datasets_X.append(int(items[0]))
 #     datasets_Y.append(int(items[1]))
 
-# length = len(datasets_X)
-# datasets_X = np.array(datasets_X).reshape([length,1])
-# datasets_Y = np.array(datasets_Y)
+length = len(datasets_X)
+datasets_X = np.array(datasets_X).reshape([length,1])
+datasets_Y = np.array(datasets_Y)
 
 # minX = min(datasets_X)
 # maxX = max(datasets_X)
