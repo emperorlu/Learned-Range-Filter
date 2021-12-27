@@ -1,7 +1,7 @@
 import matplotlib.pyplot as plt
 import numpy as np
 # from sklearn import linear_model
-from sklearn.preprocessing import PolynomialFeatures
+# from sklearn.preprocessing import PolynomialFeatures
 from sklearn.linear_model import Lasso
 import sys
 
@@ -37,7 +37,7 @@ X = np.arange(minX,maxX).reshape([-1,1])
 # X_poly = poly_reg.fit_transform(datasets_X)
 # lin_reg_2 = linear_model.LinearRegression()
 # lin_reg_2.fit(X_poly, datasets_Y)
-lin_reg_2=Lasso(alpha=10,max_iter=0)
+lin_reg_2=Lasso(alpha=10,max_iter=1)
 lin_reg_2.fit(datasets_X,datasets_Y)
 
 plt.scatter(datasets_X, datasets_Y, color = 'red')
