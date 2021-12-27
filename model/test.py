@@ -27,7 +27,7 @@ maxX = max(datasets_X)
 X = np.arange(minX,maxX).reshape([-1,1])
 
 
-poly_reg = PolynomialFeatures(degree = 3)
+poly_reg = PolynomialFeatures(degree = 10)
 X_poly = poly_reg.fit_transform(datasets_X)
 lin_reg_2 = linear_model.LinearRegression()
 lin_reg_2.fit(X_poly, datasets_Y)
