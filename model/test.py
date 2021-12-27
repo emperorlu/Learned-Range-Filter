@@ -2,9 +2,14 @@ import matplotlib.pyplot as plt
 import numpy as np
 from sklearn import linear_model
 from sklearn.preprocessing import PolynomialFeatures
-X = [x  for x in np.arange(1,101)]
+import sys
+
+a = int(sys.argv[1])  
+b = int(sys.argv[2])
+
+X = [x  for x in np.arange(1,a+1)]
 print(X)
-y = [x  for x in np.random.randint(0,2,100)]
+y = [x  for x in np.random.randint(0,2,a)]
 print(y)
 
 datasets_X = X
@@ -27,7 +32,7 @@ maxX = max(datasets_X)
 X = np.arange(minX,maxX).reshape([-1,1])
 
 
-poly_reg = PolynomialFeatures(degree = 10)
+poly_reg = PolynomialFeatures(degree = b)
 X_poly = poly_reg.fit_transform(datasets_X)
 lin_reg_2 = linear_model.LinearRegression()
 lin_reg_2.fit(X_poly, datasets_Y)
