@@ -6,7 +6,7 @@ import sys
 a = int(sys.argv[1])  
 # b = int(sys.argv[2])
 
-X = np.linspace(1,a+1,a)
+X = np.linspace(1,a,a)
 print(X)
 y =  np.array([x  for x in np.random.randint(0,2,a)])
 print(y)
