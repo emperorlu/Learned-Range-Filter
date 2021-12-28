@@ -19,7 +19,7 @@ import plotly.graph_objects as go
 import random
 import plotly.io as pio
 import matplotlib.pyplot as plt
-os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
+# os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 import sys
 
 
