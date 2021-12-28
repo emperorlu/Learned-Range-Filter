@@ -148,20 +148,20 @@ model.fit(train_data, train_classes,
         verbose=2)
 
 def test_model(test_texts):
-    print("3 test_texts:",test_texts[:3])
-    print("length",len(test_texts))
+    # print("3 test_texts:",test_texts[:3])
+    # print("length",len(test_texts))
     test_texts = tk.texts_to_sequences(test_texts)
-    print("4 test_texts:",test_texts[:3])
-    print("length",len(test_texts))
+    # print("4 test_texts:",test_texts[:3])
+    # print("length",len(test_texts))
     data = pad_sequences(test_texts, maxlen=1014, padding='post')
-    print("5 data:",data[:3])
-    print("length",len(data))
+    # print("5 data:",data[:3])
+    # print("length",len(data))
     data = np.array(data, dtype='float32')
-    print("6 data:",data[:3])
-    print("length",len(data))
+    # print("6 data:",data[:3])
+    # print("length",len(data))
     y =  model.predict(data)
-    print("7 y:",y[:3])
-    print("length",len(y))
+    # print("7 y:",y[:3])
+    # print("length",len(y))
     ans =[]
     for f in y:
         ans.append(f[1])
@@ -184,7 +184,9 @@ def f(x):
     # return (x-1)
     n = int(x)
     print("FFFF:",x,n)
+    print("data:",test_data[n:n+1])
     prediction = test_model(test_data[n:n+1])
+    print("y:",prediction[0])
     return prediction[0]
 
 minimum = optimize.minimize_scalar(f, bounds = (2, 6), method = 'bounded')
