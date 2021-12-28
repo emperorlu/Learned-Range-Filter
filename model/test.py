@@ -181,8 +181,8 @@ name=['url','score']
 # print("length",len(test_data))
 t = pd.read_csv('data.csv',names=name)
 test_data = t[1:].values.tolist()
-print("after:",test_data[:3])
-print("length",len(test_data))
+# print("after:",test_data[:3])
+# print("length",len(test_data))
 
 y = np.array([i[1] for i in test_data])
 test_data = np.array([test_data[i][0] for i in range(len(test_data))])
@@ -204,8 +204,11 @@ def f(x):
     # print("y:",prediction[0])
     return -prediction[0]
 
-minimum = optimize.minimize_scalar(f, bounds = (149, 157), method = 'bounded')
+min_num = 149
+max_num = 157
+minimum = optimize.minimize_scalar(f, bounds = (min_num, max_num), method = 'bounded')
 max = -f(minimum.x)
-print("max:",max)
+print("Query Range: (",min_num," , ",max_num,")")
+print("Max Score:",max)
 if max > 0.9: print("Exist!")
 if max < 0.9: print("Not exist!")
