@@ -169,7 +169,7 @@ def test_model(test_texts):
     return ans
 
 min_num = 149
-max_num = 159
+max_num = 160
 # test_data[max_num:max_num+1]
 # test_data = data.copy()
 # random.shuffle(test_data)
