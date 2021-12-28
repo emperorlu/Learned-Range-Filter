@@ -171,6 +171,11 @@ def test_model(test_texts):
 test_data = data.copy()
 print("1 test_data:",test_data[:3])
 print("length",len(test_data))
+
+name=['url','score']
+test=pd.DataFrame(columns=name,data=list)
+test.to_csv('data.csv',encoding='gbk')
+
 y = np.array([i[1] for i in test_data])
 test_data = np.array([test_data[i][0] for i in range(len(test_data))])
 # print("1 test_data:",test_data[:3])
