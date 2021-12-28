@@ -169,20 +169,20 @@ def test_model(test_texts):
     return ans
 
 
-test_data = data.copy()
-random.shuffle(test_data)
-print("1 test_data:",test_data[:3])
-print("length",len(test_data))
+# test_data = data.copy()
+# random.shuffle(test_data)
+# print("1 test_data:",test_data[:3])
+# print("length",len(test_data))
 
-name=['url','score']
-test=pd.DataFrame(columns=name,data=test_data)
-test.to_csv('data.csv')
-print("before:",test_data[:3])
-print("length",len(test_data))
+# name=['url','score']
+# test=pd.DataFrame(columns=name,data=test_data)
+# test.to_csv('data.csv')
+# print("before:",test_data[:3])
+# print("length",len(test_data))
 t = pd.read_csv('data.csv')
-tdata = t.values.tolist()
-print("after:",tdata[:3])
-print("length",len(tdata))
+test_data = t[1:].values.tolist()
+print("after:",test_data[:3])
+print("length",len(test_data))
 
 y = np.array([i[1] for i in test_data])
 test_data = np.array([test_data[i][0] for i in range(len(test_data))])
