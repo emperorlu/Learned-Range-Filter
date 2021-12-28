@@ -3,6 +3,7 @@ import tensorflow as tf
 import tensorflow_hub as hub
 import numpy as np
 import os
+from scipy import optimize
 from tqdm.notebook import tqdm
 from sklearn.metrics import classification_report,accuracy_score
 import pandas as pd
