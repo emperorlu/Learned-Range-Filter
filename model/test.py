@@ -184,8 +184,8 @@ name=['url','score']
 t = pd.read_csv('data.csv',names=name)
 test_data = t[1:].values.tolist()
 
-print("after:",test_data[min_num:max_num])
-print("length",len(test_data))
+# print("after:",test_data[min_num:max_num])
+# print("length",len(test_data))
 
 y = np.array([i[1] for i in test_data])
 test_data = np.array([test_data[i][0] for i in range(len(test_data))])
@@ -210,7 +210,7 @@ def f(x):
 
 minimum = optimize.minimize_scalar(f, bounds = (min_num, max_num), method = 'bounded', options={'maxiter': 1000})
 max = -f(minimum.x)
-print("Query Range: (",min_num," , ",max_num,")")
+print("Query Range: (",min_num,",",max_num,")")
 print("Max Score:",max)
 if max > 0.9: print("Exist!")
 if max < 0.9: print("Not exist!")
