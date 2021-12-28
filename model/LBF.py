@@ -146,7 +146,7 @@ model.fit(train_data, train_classes,
         verbose=2)
 
 
-def test_model(tk, model, test_texts):
+def test_model(test_texts):
   test_texts = [s.lower() for s in test_texts]
   test_texts = tk.texts_to_sequences(test_texts)
   test_data = pad_sequences(test_texts, maxlen=1014, padding='post')
