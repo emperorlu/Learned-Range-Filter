@@ -173,7 +173,7 @@ y = np.array([i[1] for i in test_data])
 test_data = np.array([test_data[i][0] for i in range(len(test_data))])
 print("2 test_data:",test_data[:3])
 print("length",len(test_data))
-prediction = test_model(test_data)
+prediction = test_model(test_data[1:1])
 print("8 prediction:",prediction[:3])
 print("length",len(prediction))
 
@@ -181,5 +181,5 @@ print("length",len(prediction))
 def f(x):
     return (x-1)
 
-minimum = optimize.minimize_scalar(f, 2, 10)
+minimum = optimize.minimize_scalar(f, bounds = (2, 6), method = 'bounded')
 print("minimum:",minimum)
