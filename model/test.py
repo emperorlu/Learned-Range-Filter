@@ -181,5 +181,5 @@ print("length",len(prediction))
 def f(x):
     return (x-1)
 
-minimum = optimize.fminbound(f, 2, 10)
+minimum = optimize.minimize_scalar(f, 2, 10)
 print("minimum:",minimum)
