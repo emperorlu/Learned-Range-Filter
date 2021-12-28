@@ -204,5 +204,8 @@ def f(x):
     # print("y:",prediction[0])
     return -prediction[0]
 
-minimum = optimize.minimize_scalar(f, bounds = (2, 6), method = 'bounded')
-print("max:",minimum)
+minimum = optimize.minimize_scalar(f, bounds = (149, 157), method = 'bounded')
+max = -(minimum.x)
+print("max:",max)
+if max > 0.9: print("Exist!")
+if max < 0.9: print("Not exist!")
