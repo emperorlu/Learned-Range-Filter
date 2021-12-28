@@ -147,7 +147,7 @@ model.summary()
 
 model.fit(train_data, train_classes,
         batch_size=256,
-        epochs=1,
+        epochs=3,
         verbose=2)
 
 def test_model(test_texts):
