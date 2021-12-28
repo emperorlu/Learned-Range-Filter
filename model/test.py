@@ -20,6 +20,8 @@ import random
 import plotly.io as pio
 import matplotlib.pyplot as plt
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
+import sys
+
 
 def gen_data():
     fs = open("../data/test_input.txt", "r",encoding='utf-8')
@@ -168,8 +170,10 @@ def test_model(test_texts):
         ans.append(f[1])
     return ans
 
-min_num = 149
-max_num = 157
+# min_num = 149
+# max_num = 157
+min_num = int(sys.argv[1])  
+max_num = int(sys.argv[2])
 # test_data[max_num:max_num+1]
 # test_data = data.copy()
 # random.shuffle(test_data)
