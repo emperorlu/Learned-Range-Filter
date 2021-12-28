@@ -142,7 +142,7 @@ model.summary()
 
 model.fit(train_data, train_classes,
         batch_size=256,
-        epochs=10,
+        epochs=3,
         verbose=2)
 
 
