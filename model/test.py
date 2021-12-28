@@ -32,18 +32,24 @@ def gen_data():
     return data
 
 test_data = gen_data()
-print("1 test_data:",test_data)
+print("1 test_data:",test_data[:3])
+print("length",len(test_data))
 test_texts = np.array([test_data[i][0] for i in range(len(test_data))])
-print("2 test_texts:",test_texts)
+print("2 test_texts:",test_texts[:3])
+print("length",test_texts.shape())
 tk = Tokenizer(num_words=None, char_level=True, oov_token='UNK') 
 test_texts = [s.lower() for s in test_texts]
-print("3 test_texts:",test_texts)
+print("3 test_texts:",test_texts[:3])
+print("length",test_texts.shape())
 test_texts = tk.texts_to_sequences(test_texts)
-print("4 test_texts:",test_texts)
+print("4 test_texts:",test_texts[:3])
+print("length",test_texts.shape())
 data = pad_sequences(test_texts, maxlen=1014, padding='post')
-print("5 data:",test_texts)
+print("5 data:",test_texts[:3])
+print("length",data.shape())
 data = np.array(data, dtype='float32')
-print("6 data:",test_texts)
+print("6 data:",test_texts[:3])
+print("length",data.shape())
 # y =  model.predict(test_data)
 
 
