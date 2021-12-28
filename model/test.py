@@ -141,15 +141,16 @@ for dense_size in fully_connected_layers:
 # Output Layer
 predictions = Dense(num_of_classes, activation='softmax')(x)
 # Build model
-model = Model(inputs=inputs, outputs=predictions)
-model.compile(optimizer=optimizer, loss=loss, metrics=['accuracy'])  # Adam, categorical_crossentropy
-model.summary()
 
-model.fit(train_data, train_classes,
-        batch_size=256,
-        epochs=3,
-        verbose=2)
-model.save("my_model")
+# model = Model(inputs=inputs, outputs=predictions)
+# model.compile(optimizer=optimizer, loss=loss, metrics=['accuracy'])  # Adam, categorical_crossentropy
+# model.summary()
+
+# model.fit(train_data, train_classes,
+#         batch_size=256,
+#         epochs=3,
+#         verbose=2)
+# model.save("my_model")
 
 my_model = load_model("my_model")
 
@@ -164,9 +165,8 @@ def test_model(test_texts):
     data = pad_sequences(test_texts, maxlen=1014, padding='post')
     data = np.array(data, dtype='float32')
     y =  my_model.predict(data)
-    y1 = model.predict(data)
-    print(y, "VS", y1)
-    if y.all() != y1.all(): print("Error Model!")
+    # print(y, "VS", y1)
+    # if y.all() != y1.all(): print("Error Model!")
     ans =[]
     for f in y:
         ans.append(f[1])
@@ -185,7 +185,7 @@ test_data = t[1:].values.tolist()
 
 y = np.array([i[1] for i in test_data])
 test_data = np.array([test_data[i][0] for i in range(len(test_data))])
-prediction = test_model(test_data)
+# prediction = test_model(test_data)
 
 
 def f(x):
