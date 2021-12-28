@@ -191,11 +191,12 @@ test_data = np.array([test_data[i][0] for i in range(len(test_data))])
 
 def f(x):
     n = int(x)
-    # print("FFFF:",x,n)
-    # print("data:",test_data[n:n+1])
-    prediction = test_model(test_data[n:n+1])
-    # print("y:",prediction[0])
-    return -prediction[0]
+    # # print("FFFF:",x,n)
+    # # print("data:",test_data[n:n+1])
+    # prediction = test_model(test_data[n:n+1])
+    # # print("y:",prediction[0])
+    # return -prediction[0]
+    return -n
 
 
 minimum = optimize.minimize_scalar(f, bounds = (min_num, max_num), method = 'bounded', options={'maxiter': 1000})
