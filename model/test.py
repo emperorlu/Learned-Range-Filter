@@ -12,7 +12,7 @@ from tensorflow.keras.preprocessing.sequence import pad_sequences
 from sklearn.model_selection import train_test_split
 from tensorflow.keras.layers import Input, Embedding, Activation, Flatten, Dense
 from tensorflow.keras.layers import Conv1D, MaxPooling1D, Dropout
-from tensorflow.keras.models import Model
+from tensorflow.keras.models import Model, load_model
 from copy import deepcopy
 from tensorflow.keras.utils import to_categorical
 import plotly.graph_objects as go
@@ -151,7 +151,7 @@ model.fit(train_data, train_classes,
         verbose=2)
 model.save("my_model")
 
-my_model = Model.load_model("my_model")
+my_model = load_model("my_model")
 
 
 def test_model(test_texts):
