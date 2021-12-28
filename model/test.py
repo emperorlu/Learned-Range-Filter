@@ -16,6 +16,7 @@ from tensorflow.keras.models import Model
 from copy import deepcopy
 from tensorflow.keras.utils import to_categorical
 import plotly.graph_objects as go
+import random
 import plotly.io as pio
 import matplotlib.pyplot as plt
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
@@ -168,7 +169,7 @@ def test_model(test_texts):
     return ans
 
 
-test_data = data.copy()
+test_data = random.shuffle(data.copy())
 print("1 test_data:",test_data[:3])
 print("length",len(test_data))
 
