@@ -205,7 +205,7 @@ def f(x):
     return -prediction[0]
 
 minimum = optimize.minimize_scalar(f, bounds = (149, 157), method = 'bounded')
-max = -(minimum.x)
+max = -f(minimum.x)
 print("max:",max)
 if max > 0.9: print("Exist!")
 if max < 0.9: print("Not exist!")
