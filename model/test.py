@@ -192,4 +192,4 @@ def f(x):
     return -prediction[0]
 
 minimum = optimize.minimize_scalar(f, bounds = (2, 6), method = 'bounded')
-print("max:",-minimum)
+print("max:",minimum)
