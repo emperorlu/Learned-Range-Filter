@@ -152,6 +152,7 @@ model.fit(train_data, train_classes,
 model.save("my_model")
 
 my_model = load_model("my_model")
+
 def test_model(test_texts):
     # print("3 test_texts:",test_texts[:3])
     # print("length",len(test_texts))
