@@ -219,28 +219,24 @@ for er in tqdm(range(len(error_rates))):
     bloom1 = BloomFilter(max_elements=25000, error_rate=error_rates[er])
     bloom2 = BloomFilter(max_elements=25000, error_rate=error_rates[er])
 
-for data_point in data:
-    if data_point[1]==1:
-        bloom1.add(data_point[0])
-        
-for data_point in data:
-    if data_point[0] in bloom1:
-        classifier_data.append(data_point)
+    for data_point in data:
+        if data_point[1]==1:
+            bloom1.add(data_point[0])
+            
+    for data_point in data:
+        if data_point[0] in bloom1:
+            classifier_data.append(data_point)
 
-bloom2=Train_Bloom2(bloom2,train_features, train_labels,tau)
-test_data = data.copy()
-y = np.array([i[1] for i in test_data])
-test_data = np.array([test_data[i][0] for i in range(len(test_data))])
-prediction = test_model(test_data)
-print("1:",len(prediction))
-# The model is tested on the entire dataset and its prediction is stored for further use
-y_pred_sandwich = Test_SLBF(model,bloom1,bloom2,test_data,tau,prediction)
-print("2:",y_pred_sandwich)
-y_pred_normal= Test_NLBF(model,bloom2,test_data,tau,prediction)
-print("3:",y_pred_normal)
-y_pred_bloom = Test_BF(bloom1,test_data)
-print("4:",y_pred_bloom)
-accuracies.append([accuracy_score(y,y_pred_sandwich),accuracy_score(y, y_pred_normal), accuracy_score(y,y_pred_bloom)])
+    bloom2=Train_Bloom2(bloom2,train_features, train_labels,tau)
+    test_data = data.copy()
+    y = np.array([i[1] for i in test_data])
+    test_data = np.array([test_data[i][0] for i in range(len(test_data))])
+    prediction = test_model(test_data)
+    # The model is tested on the entire dataset and its prediction is stored for further use
+    y_pred_sandwich = Test_SLBF(model,bloom1,bloom2,test_data,tau,prediction)
+    y_pred_normal= Test_NLBF(model,bloom2,test_data,tau,prediction)
+    y_pred_bloom = Test_BF(bloom1,test_data)
+    accuracies.append([accuracy_score(y,y_pred_sandwich),accuracy_score(y, y_pred_normal), accuracy_score(y,y_pred_bloom)])
 
 
 # test all filters
