@@ -232,7 +232,7 @@ test_data = data.copy()
 y = np.array([i[1] for i in test_data])
 test_data = np.array([test_data[i][0] for i in range(len(test_data))])
 prediction = test_model(test_data)
-print("1:",prediction.shape())
+print("1:",len(prediction))
 # The model is tested on the entire dataset and its prediction is stored for further use
 y_pred_sandwich = Test_SLBF(model,bloom1,bloom2,test_data,tau,prediction)
 print("2:",y_pred_sandwich)
