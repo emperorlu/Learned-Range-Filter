@@ -245,6 +245,7 @@ accuracies.append([accuracy_score(y,y_pred_sandwich),accuracy_score(y, y_pred_no
 
 # test all filters
 print("accuracies:",accuracies)
+print("error_rates:",error_rates)
 sandwich = []
 normal = []
 bloom = []
