@@ -182,7 +182,8 @@ test_data = np.array([test_data[i][0] for i in range(len(test_data))])
 
 def f(x):
     # return (x-1)
-    prediction = test_model(test_data[x:x+1])
+    n = int(x)
+    prediction = test_model(test_data[n:n+1])
     return prediction[0]
 
 minimum = optimize.minimize_scalar(f, bounds = (2, 6), method = 'bounded')
