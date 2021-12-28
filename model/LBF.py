@@ -15,6 +15,7 @@ from tensorflow.keras.models import Model
 from copy import deepcopy
 from tensorflow.keras.utils import to_categorical
 import plotly.graph_objects as go
+import plotly.io as pio
 import matplotlib.pyplot as plt
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 
@@ -142,7 +143,7 @@ model.summary()
 
 model.fit(train_data, train_classes,
         batch_size=256,
-        epochs=3,
+        epochs=1,
         verbose=2)
 
 
@@ -231,15 +232,19 @@ test_data = data.copy()
 y = np.array([i[1] for i in test_data])
 test_data = np.array([test_data[i][0] for i in range(len(test_data))])
 prediction = test_model(test_data)
+print("1:",prediction)
 # The model is tested on the entire dataset and its prediction is stored for further use
 y_pred_sandwich = Test_SLBF(model,bloom1,bloom2,test_data,tau,prediction)
+print("2:",y_pred_sandwich)
 y_pred_normal= Test_NLBF(model,bloom2,test_data,tau,prediction)
+print("3:",y_pred_normal)
 y_pred_bloom = Test_BF(bloom1,test_data)
+print("4:",y_pred_bloom)
 accuracies.append([accuracy_score(y,y_pred_sandwich),accuracy_score(y, y_pred_normal), accuracy_score(y,y_pred_bloom)])
 
 
 # test all filters
-print(accuracies)
+print("accuracies:",accuracies)
 sandwich = []
 normal = []
 bloom = []
@@ -268,6 +273,7 @@ fig.update_layout(
     width = 1280
 )
 fig.show()
+pio.write_image(fig, 'lbf.png')
 
 
 
