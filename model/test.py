@@ -149,42 +149,28 @@ model.fit(train_data, train_classes,
         batch_size=256,
         epochs=3,
         verbose=2)
+model.save("my_model")
+
+my_model = Model.load_model("my_model")
+
 
 def test_model(test_texts):
     # print("3 test_texts:",test_texts[:3])
     # print("length",len(test_texts))
     test_texts = tk.texts_to_sequences(test_texts)
-    # print("4 test_texts:",test_texts[:3])
-    # print("length",len(test_texts))
     data = pad_sequences(test_texts, maxlen=1014, padding='post')
-    # print("5 data:",data[:3])
-    # print("length",len(data))
     data = np.array(data, dtype='float32')
-    # print("6 data:",data[:3])
-    # print("length",len(data))
-    y =  model.predict(data)
-    # print("7 y:",y[:3])
-    # print("length",len(y))
+    y =  my_model.predict(data)
     ans =[]
     for f in y:
         ans.append(f[1])
     return ans
 
-# min_num = 149
-# max_num = 157
 min_num = int(sys.argv[1])  
 max_num = int(sys.argv[2])
-# test_data[max_num:max_num+1]
-# test_data = data.copy()
-# random.shuffle(test_data)
-# print("1 test_data:",test_data[:3])
-# print("length",len(test_data))
+
 
 name=['url','score']
-# test=pd.DataFrame(columns=name,data=test_data)
-# test.to_csv('data.csv')
-# print("before:",test_data[:3])
-# print("length",len(test_data))
 t = pd.read_csv('data.csv',names=name)
 test_data = t[1:].values.tolist()
 
@@ -193,17 +179,12 @@ test_data = t[1:].values.tolist()
 
 y = np.array([i[1] for i in test_data])
 test_data = np.array([test_data[i][0] for i in range(len(test_data))])
-# print("1 test_data:",test_data[:3])
-# print("length",len(test_data))
-# print("2 test_data:",test_data[1:2])
-# print("length",len(test_data[1:2]))
-# prediction = test_model(test_data[1:2])
-# print("8 prediction:",prediction[:3])
-# print("length",len(prediction))
+np.testing.assert_allclose(
+    model.predict(test_data), my_model.predict(test_data)
+)
 
 
 def f(x):
-    # return (x-1)
     n = int(x)
     # print("FFFF:",x,n)
     # print("data:",test_data[n:n+1])
