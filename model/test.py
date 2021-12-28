@@ -179,7 +179,7 @@ print("length",len(prediction))
 
 
 def f(x):
-    return (x-'1')
+    return (x-1)
 
 minimum = optimize.fminbound(f, 2, 10)
 print("minimum:",minimum)
