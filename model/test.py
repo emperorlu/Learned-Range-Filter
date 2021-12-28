@@ -179,7 +179,7 @@ def test_model(test_texts):
 # test.to_csv('data.csv')
 # print("before:",test_data[:3])
 # print("length",len(test_data))
-t = pd.read_csv('data.csv')
+t = pd.read_csv('data.csv',columns=[1,2])
 test_data = t[1:].values.tolist()
 print("after:",test_data[:3])
 print("length",len(test_data))
