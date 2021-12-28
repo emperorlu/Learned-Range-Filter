@@ -169,6 +169,8 @@ def test_model(test_texts):
 
 
 test_data = data.copy()
+print("1 test_data:",test_data[:3])
+print("length",len(test_data))
 y = np.array([i[1] for i in test_data])
 test_data = np.array([test_data[i][0] for i in range(len(test_data))])
 # print("1 test_data:",test_data[:3])
@@ -187,7 +189,7 @@ def f(x):
     print("data:",test_data[n:n+1])
     prediction = test_model(test_data[n:n+1])
     print("y:",prediction[0])
-    return prediction[0]
+    return -prediction[0]
 
 minimum = optimize.minimize_scalar(f, bounds = (2, 6), method = 'bounded')
-print("minimum:",minimum)
+print("max:",-minimum)
