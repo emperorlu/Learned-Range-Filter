@@ -205,7 +205,7 @@ def f(x):
     return -prediction[0]
 
 min_num = 149
-max_num = 157
+max_num = 158
 minimum = optimize.minimize_scalar(f, bounds = (min_num, max_num), method = 'bounded')
 max = -f(minimum.x)
 print("Query Range: (",min_num," , ",max_num,")")
