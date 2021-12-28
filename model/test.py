@@ -174,7 +174,7 @@ print("length",len(test_data))
 
 name=['url','score']
 test=pd.DataFrame(columns=name,data=test_data)
-test.to_csv('data.csv',encoding='gbk')
+test.to_csv('data.csv')
 
 y = np.array([i[1] for i in test_data])
 test_data = np.array([test_data[i][0] for i in range(len(test_data))])
