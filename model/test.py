@@ -1,7 +1,7 @@
 import numpy as np
 from tensorflow.keras.preprocessing.text import Tokenizer
 from tensorflow.keras.preprocessing.sequence import pad_sequences
-
+from scipy import optimize
 
 def gen_data():
     fs = open("../data/test_input.txt", "r",encoding='utf-8')
@@ -47,7 +47,11 @@ print("6 data:",test_texts)
 # y =  model.predict(test_data)
 
 
-# def f(x):
+def f(x):
+    return (x-'1')
+
+minimum = optimize.fminbound(f, '2', '6')
+print("minimum:",minimum)
 #     test_texts = [s.lower() for s in test_texts]
 #     test_texts = tk.texts_to_sequences(test_texts)
 #     test_data = pad_sequences(test_texts, maxlen=1014, padding='post')
