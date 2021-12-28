@@ -168,7 +168,9 @@ def test_model(test_texts):
         ans.append(f[1])
     return ans
 
-
+min_num = 149
+max_num = 159
+# test_data[max_num:max_num+1]
 # test_data = data.copy()
 # random.shuffle(test_data)
 # print("1 test_data:",test_data[:3])
@@ -181,8 +183,9 @@ name=['url','score']
 # print("length",len(test_data))
 t = pd.read_csv('data.csv',names=name)
 test_data = t[1:].values.tolist()
-# print("after:",test_data[:3])
-# print("length",len(test_data))
+
+print("after:",test_data[min_num:max_num])
+print("length",len(test_data))
 
 y = np.array([i[1] for i in test_data])
 test_data = np.array([test_data[i][0] for i in range(len(test_data))])
@@ -204,8 +207,7 @@ def f(x):
     # print("y:",prediction[0])
     return -prediction[0]
 
-min_num = 149
-max_num = 159
+
 minimum = optimize.minimize_scalar(f, bounds = (min_num, max_num), method = 'bounded')
 max = -f(minimum.x)
 print("Query Range: (",min_num," , ",max_num,")")
