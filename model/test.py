@@ -173,7 +173,7 @@ y = np.array([i[1] for i in test_data])
 test_data = np.array([test_data[i][0] for i in range(len(test_data))])
 print("2 test_data:",test_data[:3])
 print("length",len(test_data))
-prediction = test_model(test_data[1])
+prediction = test_model(test_data)
 print("8 prediction:",prediction[:3])
 print("length",len(prediction))
 
