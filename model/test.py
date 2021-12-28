@@ -153,6 +153,10 @@ model.save("my_model")
 
 my_model = load_model("my_model")
 
+# np.testing.assert_allclose(
+#     model.predict(test_data), my_model.predict(test_data)
+# )
+
 def test_model(test_texts):
     # print("3 test_texts:",test_texts[:3])
     # print("length",len(test_texts))
@@ -160,6 +164,9 @@ def test_model(test_texts):
     data = pad_sequences(test_texts, maxlen=1014, padding='post')
     data = np.array(data, dtype='float32')
     y =  my_model.predict(data)
+    y1 = model.predict(data)
+    print(y, "VS", y1)
+    if y != y1: print("Error Model!")
     ans =[]
     for f in y:
         ans.append(f[1])
@@ -178,9 +185,7 @@ test_data = t[1:].values.tolist()
 
 y = np.array([i[1] for i in test_data])
 test_data = np.array([test_data[i][0] for i in range(len(test_data))])
-np.testing.assert_allclose(
-    model.predict(test_data), my_model.predict(test_data)
-)
+prediction = test_model(test_data)
 
 
 def f(x):
