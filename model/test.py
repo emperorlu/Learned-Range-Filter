@@ -166,7 +166,7 @@ def test_model(test_texts):
     y =  my_model.predict(data)
     y1 = model.predict(data)
     print(y, "VS", y1)
-    if y != y1: print("Error Model!")
+    if y.all() != y1.all(): print("Error Model!")
     ans =[]
     for f in y:
         ans.append(f[1])
