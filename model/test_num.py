@@ -20,56 +20,20 @@ from tensorflow.keras.utils import to_categorical
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 import sys
 
-a = int(sys.argv[1]) 
-def gen_data():
-    fs = open("../data/test_input.txt", "r",encoding='utf-8')
-    X = []
-    y = []
-    c1 = 0
-    c2 = 0
-    for i, line in enumerate(fs.readlines()[1:]):
-        url = line[:-5]
-        label = line[-5:-1]
-        url.strip(',')
-        url.strip("")
-        if ((c1==30000) and (c2==30000)):
-          break
-        if label==",bad":
-          if c1<30000:
-            c1+=1
-            X.append(url)
-            y.append(0)
-        else:
-          if c2<30000:
-            c2+=1
-            X.append(url)
-            y.append(1)
-    data = []
-    for i in range(len(X)):
-        data.append([X[i], y[i]])
-    return data
-
-
-#(10011100010000)2 = 10000
-
-data = gen_data()
-# train_features = np.array([str(i[0]) for i in data])
-# train_labels = np.array([i[1] for i in data])
-train_features = np.array([x  for x in np.arange(1,a+1)])
-ytrain_labels = np.array([x  for x in np.random.randint(0,2,a)])
+# a = int(sys.argv[1]) 
+a = 10000
 
 tk = Tokenizer(num_words=None, char_level=True, oov_token='UNK') 
 
-data1 = deepcopy(data)
-data1 = np.array(data1)
-train_texts = data1[:,0]
-y_train = data1[:,1]
-train_texts = [s.lower() for s in train_texts]
+train_texts  = ['{:014b}'.format(x)  for x in np.arange(1,a+1)]
+y_train  = [x  for x in np.random.randint(0,2,a)]
+
 tk.fit_on_texts(train_texts)
-alphabet = "abcdefghijklmnopqrstuvwxyz0123456789,;.!?:'\"/\\|_@#$%^&*~`+-=<>()[]{}"
+alphabet = "0123456789"
+
 char_dict = {}
 for i, char in enumerate(alphabet):
-    char_dict[char] = i + 1
+    char_dict[char] = i
 
 tk.word_index = char_dict.copy()
 tk.word_index[tk.oov_token] = max(char_dict.values()) + 1
@@ -86,10 +50,8 @@ train_data = pad_sequences(train_texts, maxlen=14, padding='post')
 
 # Convert to numpy array
 train_data = np.array(train_data, dtype='float32')
-# test_data = np.array(test_data, dtype='float32')
 
 # =======================Get classes================
-# train_y = train_df[0].values
 train_class_list = [x  for x in y_train]
 
 train_classes = to_categorical(train_class_list)
