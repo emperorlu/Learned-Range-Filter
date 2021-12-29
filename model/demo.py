@@ -79,5 +79,5 @@ train_data = pad_sequences(train_texts, maxlen=14, padding='post')
 
 train_data = np.array(train_data, dtype='float32')
 print("6 train_data:",train_data[:3])
-print("length",train_data.shape())
+print("length",len(train_data))
 print("length",type(train_data))
