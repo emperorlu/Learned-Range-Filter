@@ -60,12 +60,12 @@ train_classes = to_categorical(train_class_list)
 # parameter
 input_size = 14
 embedding_size = 11
-conv_layers = [[256, 7, 3],
-            [256, 7, 3],
-            [256, 3, -1],
-            [256, 3, -1],
-            [256, 3, -1],
-            [256, 3, 3]]
+conv_layers = [[1024, 7, 3],
+            [1024, 7, 3],
+            [1024, 3, -1],
+            [1024, 3, -1],
+            [1024, 3, -1],
+            [1024, 3, 3]]
 
 fully_connected_layers = [64, 4]
 num_of_classes = 2
@@ -113,7 +113,7 @@ model.compile(optimizer=optimizer, loss=loss, metrics=['accuracy'])  # Adam, cat
 model.summary()
 
 model.fit(train_data, train_classes,
-        batch_size=256,
+        batch_size=1024,
         epochs=100,
         verbose=2)
 model.save("num_model")
