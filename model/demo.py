@@ -41,17 +41,17 @@ print("length",type(tbin))
 
 train_texts = data1[:,0]
 print("1 train_texts:",train_texts[:3])
-print("length",train_texts.shape())
+print("length",len(train_texts))
 print("length",type(train_texts))
 
 y_train = data1[:,1]
 print("2 y_train:",y_train[:3])
-print("length",y_train.shape())
+print("length",len(y_train))
 print("length",type(y_train))
 
 train_texts = [s.lower() for s in train_texts]
 print("3 train_texts:",train_texts[:3])
-print("length",train_texts.shape())
+print("length",len(train_texts))
 print("length",type(train_texts))
 
 tk = Tokenizer(num_words=None, char_level=True, oov_token='UNK') 
