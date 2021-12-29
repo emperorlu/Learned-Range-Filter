@@ -1,6 +1,3 @@
-# from bloom_filter import BloomFilter
-# import tensorflow as tf 
-# import tensorflow_hub as hub
 import numpy as np
 import os
 # from .session import Session
@@ -23,7 +20,7 @@ from tensorflow.keras.utils import to_categorical
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 import sys
 
-
+a = int(sys.argv[1]) 
 def gen_data():
     fs = open("../data/test_input.txt", "r",encoding='utf-8')
     X = []
@@ -52,13 +49,54 @@ def gen_data():
         data.append([X[i], y[i]])
     return data
 
+
+#(10011100010000)2 = 10000
+
 data = gen_data()
-train_features = np.array([str(i[0]) for i in data])
-train_labels = np.array([i[1] for i in data])
+# train_features = np.array([str(i[0]) for i in data])
+# train_labels = np.array([i[1] for i in data])
+train_features = np.array([x  for x in np.arange(1,a+1)])
+ytrain_labels = np.array([x  for x in np.random.randint(0,2,a)])
 
 tk = Tokenizer(num_words=None, char_level=True, oov_token='UNK') 
-input_size = 1014
 
+data1 = deepcopy(data)
+data1 = np.array(data1)
+train_texts = data1[:,0]
+y_train = data1[:,1]
+train_texts = [s.lower() for s in train_texts]
+tk.fit_on_texts(train_texts)
+alphabet = "abcdefghijklmnopqrstuvwxyz0123456789,;.!?:'\"/\\|_@#$%^&*~`+-=<>()[]{}"
+char_dict = {}
+for i, char in enumerate(alphabet):
+    char_dict[char] = i + 1
+
+tk.word_index = char_dict.copy()
+tk.word_index[tk.oov_token] = max(char_dict.values()) + 1
+
+# test_texts = tk.texts_to_sequences(test_texts)
+# data = pad_sequences(test_texts, maxlen=1014, padding='post')
+# data = np.array(data, dtype='float32')
+
+
+train_texts = tk.texts_to_sequences(train_texts)
+
+# Padding
+train_data = pad_sequences(train_texts, maxlen=14, padding='post')
+
+# Convert to numpy array
+train_data = np.array(train_data, dtype='float32')
+# test_data = np.array(test_data, dtype='float32')
+
+# =======================Get classes================
+# train_y = train_df[0].values
+train_class_list = [x  for x in y_train]
+
+train_classes = to_categorical(train_class_list)
+
+# =====================Char CNN=======================
+# parameter
+input_size = 14
 embedding_size = 69
 conv_layers = [[256, 7, 3],
             [256, 7, 3],
@@ -73,40 +111,6 @@ dropout_p = 0.1
 optimizer = 'adam'
 loss = 'categorical_crossentropy'
 embedding_weights = []
-data1 = deepcopy(data)
-data1 = np.array(data1)
-train_texts = data1[:,0]
-y_train = data1[:,1]
-train_texts = [s.lower() for s in train_texts]
-tk.fit_on_texts(train_texts)
-alphabet = "abcdefghijklmnopqrstuvwxyz0123456789,;.!?:'\"/\\|_@#$%^&*~`+-=<>()[]{}"
-char_dict = {}
-for i, char in enumerate(alphabet):
-    char_dict[char] = i + 1
-
-tk.word_index = char_dict.copy()
-tk.word_index[tk.oov_token] = max(char_dict.values()) + 1
-train_texts = tk.texts_to_sequences(train_texts)
-
-# Padding
-train_data = pad_sequences(train_texts, maxlen=1014, padding='post')
-
-# Convert to numpy array
-train_data = np.array(train_data, dtype='float32')
-# test_data = np.array(test_data, dtype='float32')
-
-# =======================Get classes================
-# train_y = train_df[0].values
-train_class_list = [x  for x in y_train]
-
-train_classes = to_categorical(train_class_list)
-# test_classes = to_categorical(test_class_list)
-# tk = Tokenizer(num_words=None, char_level=True, oov_token='UNK') 
-
-# =====================Char CNN=======================
-# parameter
-
-
 # Embedding weights
 # (70, 69)
 vocab_size = len(tk.word_index)
@@ -118,7 +122,6 @@ for char, i in tk.word_index.items():  # from index 1 to 69
     embedding_weights.append(onehot)
 
 embedding_weights = np.array(embedding_weights)
-print('Load')
 
 # Embedding layer Initialization
 embedding_layer = Embedding(vocab_size + 1,
@@ -143,65 +146,63 @@ for dense_size in fully_connected_layers:
 predictions = Dense(num_of_classes, activation='softmax')(x)
 # Build model
 
-# model = Model(inputs=inputs, outputs=predictions)
-# model.compile(optimizer=optimizer, loss=loss, metrics=['accuracy'])  # Adam, categorical_crossentropy
-# model.summary()
+model = Model(inputs=inputs, outputs=predictions)
+model.compile(optimizer=optimizer, loss=loss, metrics=['accuracy'])  # Adam, categorical_crossentropy
+model.summary()
 
-# model.fit(train_data, train_classes,
-#         batch_size=256,
-#         epochs=3,
-#         verbose=2)
-# model.save("my_model")
+model.fit(train_data, train_classes,
+        batch_size=256,
+        epochs=3,
+        verbose=2)
+model.save("num_model")
 
-my_model = load_model("my_model")
-
-# np.testing.assert_allclose(
-#     model.predict(test_data), my_model.predict(test_data)
-# )
-
-def test_model(test_texts):
-    # print("3 test_texts:",test_texts[:3])
-    # print("length",len(test_texts))
-    test_texts = tk.texts_to_sequences(test_texts)
-    data = pad_sequences(test_texts, maxlen=1014, padding='post')
-    data = np.array(data, dtype='float32')
-    y =  my_model.predict(data)
-    # print(y, "VS", y1)
-    # if y.all() != y1.all(): print("Error Model!")
-    ans =[]
-    for f in y:
-        ans.append(f[1])
-    return ans
-
-min_num = int(sys.argv[1])  
-max_num = int(sys.argv[2])
+my_model = load_model("num_model")
 
 
-name=['url','score']
-t = pd.read_csv('data.csv',names=name)
-test_data = t[1:].values.tolist()
 
-# print("after:",test_data[min_num:max_num])
-# print("length",len(test_data))
+# def test_model(test_texts):
+#     # print("3 test_texts:",test_texts[:3])
+#     # print("length",len(test_texts))
+#     test_texts = tk.texts_to_sequences(test_texts)
+#     data = pad_sequences(test_texts, maxlen=1014, padding='post')
+#     data = np.array(data, dtype='float32')
+#     y =  my_model.predict(data)
+#     # print(y, "VS", y1)
+#     # if y.all() != y1.all(): print("Error Model!")
+#     ans =[]
+#     for f in y:
+#         ans.append(f[1])
+#     return ans
 
-y = np.array([i[1] for i in test_data])
-test_data = np.array([test_data[i][0] for i in range(len(test_data))])
-# prediction = test_model(test_data)
-
-
-def f(x):
-    n = int(x)
-    # # print("FFFF:",x,n)
-    # # print("data:",test_data[n:n+1])
-    # prediction = test_model(test_data[n:n+1])
-    # # print("y:",prediction[0])
-    # return -prediction[0]
-    return -n
+# min_num = int(sys.argv[1])  
+# max_num = int(sys.argv[2])
 
 
-minimum = optimize.minimize_scalar(f, bounds = (min_num, max_num), method = 'bounded', options={'maxiter': 1000})
-max = -f(minimum.x)
-print("Query Range: (",min_num,",",max_num,")")
-print("Max Score:",max)
-if max > 0.9: print("Exist!")
-if max < 0.9: print("Not exist!")
+# name=['url','score']
+# t = pd.read_csv('data.csv',names=name)
+# test_data = t[1:].values.tolist()
+
+# # print("after:",test_data[min_num:max_num])
+# # print("length",len(test_data))
+
+# y = np.array([i[1] for i in test_data])
+# test_data = np.array([test_data[i][0] for i in range(len(test_data))])
+# # prediction = test_model(test_data)
+
+
+# def f(x):
+#     n = int(x)
+#     # # print("FFFF:",x,n)
+#     # # print("data:",test_data[n:n+1])
+#     # prediction = test_model(test_data[n:n+1])
+#     # # print("y:",prediction[0])
+#     # return -prediction[0]
+#     return -n
+
+
+# minimum = optimize.minimize_scalar(f, bounds = (min_num, max_num), method = 'bounded', options={'maxiter': 1000})
+# max = -f(minimum.x)
+# print("Query Range: (",min_num,",",max_num,")")
+# print("Max Score:",max)
+# if max > 0.9: print("Exist!")
+# if max < 0.9: print("Not exist!")
