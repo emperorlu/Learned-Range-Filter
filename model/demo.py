@@ -42,7 +42,7 @@ print("1 tbin:",tbin)
 print("length",len(tbin))
 print("length",type(tbin))
 
-train_texts = ['{:14b}'.format(a)  for x in np.arange(1,a+1)]
+train_texts = ['{:14b}'.format(x)  for x in np.arange(1,a+1)]
 #data1[:,0]
 print("1 train_texts:",train_texts[:3])
 print("length",len(train_texts))
