@@ -35,34 +35,39 @@ def gen_data():
 data = gen_data()
 data1 = np.array(data)
 
-tbin = bin(10000)
+a = 10000
+
+tbin = bin(a)[2:]
 print("1 tbin:",tbin)
 print("length",len(tbin))
 print("length",type(tbin))
 
-train_texts = data1[:,0]
+train_texts = [bin(x)[2:]  for x in np.arange(1,a+1)]
+#data1[:,0]
 print("1 train_texts:",train_texts[:3])
 print("length",len(train_texts))
 print("length",type(train_texts))
 
-y_train = data1[:,1]
+y_train = [x  for x in np.random.randint(0,2,a)]
+#data1[:,1]
 print("2 y_train:",y_train[:3])
 print("length",len(y_train))
 print("length",type(y_train))
 
-train_texts = [s.lower() for s in train_texts]
-print("3 train_texts:",train_texts[:3])
-print("length",len(train_texts))
-print("length",type(train_texts))
+# train_texts = [s.lower() for s in train_texts]
+# print("3 train_texts:",train_texts[:3])
+# print("length",len(train_texts))
+# print("length",type(train_texts))
 
 tk = Tokenizer(num_words=None, char_level=True, oov_token='UNK') 
 tk.fit_on_texts(train_texts)
 
 
-alphabet = "abcdefghijklmnopqrstuvwxyz0123456789,;.!?:'\"/\\|_@#$%^&*~`+-=<>()[]{}"
+# alphabet = "abcdefghijklmnopqrstuvwxyz0123456789,;.!?:'\"/\\|_@#$%^&*~`+-=<>()[]{}"
+alphabet = "0123456789"
 char_dict = {}
 for i, char in enumerate(alphabet):
-    char_dict[char] = i + 1
+    char_dict[char] = i
 
 tk.word_index = char_dict.copy()
 tk.word_index[tk.oov_token] = max(char_dict.values()) + 1
