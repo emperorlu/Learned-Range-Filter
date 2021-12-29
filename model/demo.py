@@ -37,6 +37,7 @@ data1 = np.array(data)
 
 tbin = bin(10000)
 print("1 tbin:",tbin)
+print("length",len(tbin))
 print("length",type(tbin))
 
 train_texts = data1[:,0]
@@ -70,7 +71,7 @@ print("length",type(tk.word_index))
 
 train_texts = tk.texts_to_sequences(train_texts)
 print("5 train_texts:",train_texts[:3])
-print("length",train_texts.shape())
+print("length",len(train_texts))
 print("length",type(train_texts))
 
 train_data = pad_sequences(train_texts, maxlen=14, padding='post')
