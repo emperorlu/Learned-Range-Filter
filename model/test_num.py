@@ -55,6 +55,9 @@ train_data = np.array(train_data, dtype='float32')
 train_class_list = [x  for x in y_train]
 
 train_classes = to_categorical(train_class_list)
+print("3 train_classes:",train_classes[:3])
+print("length",len(train_classes))
+print("length",type(train_classes))
 
 # =====================Char CNN=======================
 # parameter
