@@ -63,12 +63,12 @@ train_data = np.array(train_data, dtype='float32')
 train_class_list = [x  for x in y_train]
 
 train_classes = to_categorical(train_class_list)
-print("1 train_data:",train_data[:10])
-print("length",len(train_data))
-print("type",type(train_data))
-print("2 train_classes:",train_classes[:10])
-print("length",len(train_classes))
-print("type",type(train_classes))
+# print("1 train_data:",train_data[:10])
+# print("length",len(train_data))
+# print("type",type(train_data))
+# print("2 train_classes:",train_classes[:10])
+# print("length",len(train_classes))
+# print("type",type(train_classes))
 
 # =====================Char CNN=======================
 # parameter
@@ -108,7 +108,7 @@ inputs = Input(shape=(input_size,), name='input', dtype='int64')  # shape=(?, 10
 # Embedding
 x = embedding_layer(inputs)
 
-x = GRU(64)(x)
+# x = GRU(64)(x)
 
 # Conv
 # for filter_num, filter_size, pooling_size in conv_layers:
@@ -126,7 +126,7 @@ for dense_size in fully_connected_layers:
 # Output Layer
 predictions = Dense(num_of_classes, activation='softmax')(x)
 # Build model
-optimizer = optimizers.Adam(learning_rate=0.001, decay=0.0001)
+optimizer = optimizers.Adam(learning_rate=0.1, decay=0.001)
 model = Model(inputs=inputs, outputs=predictions)
 model.compile(optimizer=optimizer, loss=loss, metrics=['accuracy'])  # Adam, categorical_crossentropy
 model.summary()
