@@ -149,7 +149,7 @@ train_classes = to_categorical(train_class_list)
 # model.save("num_model")
 
 # my_model = load_model("num_model")
-
+train_data = train_data.tolist()
 print("train_data:",train_data[:10])
 print("length",len(train_data))
 print("type",type(train_data))
