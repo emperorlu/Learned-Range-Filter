@@ -28,6 +28,13 @@ tk = Tokenizer(num_words=None, char_level=True, oov_token='UNK')
 train_texts  = ['{:014b}'.format(x)  for x in np.arange(1,a+1)]
 y_train  = [x  for x in np.random.randint(0,2,a)]
 
+sdata = []
+for i in range(len(train_texts)):
+    sdata.append([train_texts[i], y_train[i]])
+name=['url','score']
+stest=pd.DataFrame(columns=name,data=sdata)
+stest.to_csv('num.csv',encoding='gbk')
+
 tk.fit_on_texts(train_texts)
 alphabet = "0123456789"
 
