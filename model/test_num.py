@@ -84,7 +84,7 @@ conv_layers = [[256, 7, 3],
 fully_connected_layers = [64, 4]
 num_of_classes = 2
 dropout_p = 0.1
-optimizer = 'adam'
+optimizer = 'adadelta' #'adam'
 loss = 'categorical_crossentropy'
 embedding_weights = []
 # Embedding weights
