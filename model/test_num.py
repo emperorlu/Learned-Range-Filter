@@ -164,7 +164,7 @@ train_classes = to_categorical(train_class_list)
 print("train_data:",train_data[:10])
 print("length",len(train_data))
 print("type",type(train_data))
-for i in range(1,a+1): 
+for i in range(1,100): 
     print("x:",i)
     print("type",type(i))
 y_train2 = [x for x in range(1,a+1)]
