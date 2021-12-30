@@ -33,9 +33,18 @@ train_texts  = ['{:014b}'.format(x)  for x in range(1,a+1)]
 adata=np.load('a.npy')
 y_train=adata.tolist()
 
-name=['score']
-stest=pd.DataFrame(columns=name,data=y_train)
-stest.to_csv('num_score.csv',encoding='gbk')
+# name=['score']
+# stest=pd.DataFrame(columns=name,data=y_train)
+# stest.to_csv('num_score.csv',encoding='gbk')
+
+num0 = 0; num1 = 0
+for y in y_train:
+    if y == 0: 
+        num0 += 1
+    else:
+        num1 += 1
+print("num0:",num0,"num1:",num1)    
+
 
 # y_train = []
 # num0 = 0; num1 = 0
