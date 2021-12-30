@@ -146,10 +146,10 @@ train_classes = to_categorical(train_class_list)
 
 # y   = [x  for x in np.random.randint(0,2,a)]
 
-svmclassifier = svm.SVC(kernel='poly', gamma=0.1, decision_function_shape='ovo', C=0.1, verbose=2)
+svmclassifier = svm.SVC(kernel='poly', gamma=0.1, decision_function_shape='ovo', C=0.1, verbose=2, epochs=1000)
 svmclassifier.fit(train_data, y_train)
 print(svmclassifier.score(train_data, y_train))
-rf0 = RandomForestClassifier(oob_score=True, random_state=10)
+rf0 = RandomForestClassifier(oob_score=True, random_state=10, epochs=10000, verbose=2)
 rf0.fit(train_data, y_train)
 print(rf0.oob_score_)
 
