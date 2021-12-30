@@ -29,28 +29,31 @@ a = 10000
 tk = Tokenizer(num_words=None, char_level=True, oov_token='UNK') 
 
 train_texts  = ['{:014b}'.format(x)  for x in range(1,a+1)]
-y_train = []
-num0 = 0; num1 = 0
-for i in range(0,a):
-    y = random.randint(0,1)
-    if y == 0: 
-        if num0<5000:
-            num0 += 1
-            y_train.append(y)
-        else:
-            y_train.append(y+1)
-    if y == 1: 
-        if num1<5000:
-            num1 += 1
-            y_train.append(y)
-        else:
-            y_train.append(y-1)
+adata=np.load('a.npy')
+y_train=adata.tolist()
 
-print("y_train:",y_train[:10])
-print("length",len(y_train))
-print("type",type(y_train))
-ynp=np.array(y_train)
-np.save('a.npy',ynp)  
+# y_train = []
+# num0 = 0; num1 = 0
+# for i in range(0,a):
+#     y = random.randint(0,1)
+#     if y == 0: 
+#         if num0<5000:
+#             num0 += 1
+#             y_train.append(y)
+#         else:
+#             y_train.append(y+1)
+#     if y == 1: 
+#         if num1<5000:
+#             num1 += 1
+#             y_train.append(y)
+#         else:
+#             y_train.append(y-1)
+
+# print("y_train:",y_train[:10])
+# print("length",len(y_train))
+# print("type",type(y_train))
+# ynp=np.array(y_train)
+# np.save('a.npy',ynp)  
 
 
 
@@ -65,10 +68,6 @@ np.save('a.npy',ynp)
 # t = pd.read_csv('num_score.csv',names=['score'])
 # y_train = t.values.tolist()
 
-# a=np.array(y_texts)
-# np.save('a.npy',a)  
-# adata=np.load('a.npy')
-# y_train=adata.tolist()
 
 
 tk.fit_on_texts(train_texts)
