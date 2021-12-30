@@ -71,12 +71,12 @@ print("type",type(train_classes))
 # parameter
 input_size = 14
 embedding_size = 11
-conv_layers = [[1024, 7, 3],
-            [1024, 7, 3],
-            [1024, 3, -1],
-            [1024, 3, -1],
-            [1024, 3, -1],
-            [1024, 3, 3]]
+conv_layers = [[256, 7, 3],
+            [256, 7, 3],
+            [256, 3, -1],
+            [256, 3, -1],
+            [256, 3, -1],
+            [256, 3, 3]]
 
 fully_connected_layers = [64, 4]
 num_of_classes = 2
