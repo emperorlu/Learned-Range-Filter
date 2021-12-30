@@ -81,7 +81,7 @@ conv_layers = [[256, 7, 3],
             # [256, 3, -1],
             [256, 3, 3]]
 
-fully_connected_layers = [8, 4]
+fully_connected_layers = [64, 4]
 num_of_classes = 2
 dropout_p = 0.1
 optimizer = 'adam'
@@ -113,15 +113,16 @@ x = embedding_layer(inputs)
 
 # Conv
 # for filter_num, filter_size, pooling_size in conv_layers:
-x = Conv1D(8, 4)(x)
+x = Conv1D(64, 4)(x)
 x = Activation('relu')(x)
 # if pooling_size != -1:
 x = MaxPooling1D(pool_size=2)(x)  # Final shape=(None, 34, 256)
 x = Flatten()(x)  # (None, 8704)
+
 # Fully connected layers
-for dense_size in fully_connected_layers:
-    x = Dense(dense_size, activation='relu')(x)  # dense_size == 1024
-    x = Dropout(dropout_p)(x)
+# for dense_size in fully_connected_layers:
+#     x = Dense(dense_size, activation='relu')(x)  # dense_size == 1024
+#     x = Dropout(dropout_p)(x)
 
 
 # Output Layer
