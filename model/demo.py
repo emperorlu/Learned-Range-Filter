@@ -86,3 +86,53 @@ train_data = np.array(train_data, dtype='float32')
 print("6 train_data:",train_data[:3])
 print("length",len(train_data))
 print("length",type(train_data))
+
+
+# name=['score']
+# stest=pd.DataFrame(columns=name,data=y_train)
+# stest.to_csv('num_score.csv',encoding='gbk')
+
+# num0 = 0; num1 = 0
+# for y in y_train:
+#     if y == 0: 
+#         num0 += 1
+#     else:
+#         num1 += 1
+# print("num0:",num0,"num1:",num1)    
+
+
+# y_train = []
+# num0 = 0; num1 = 0
+# for i in range(0,a):
+#     y = random.randint(0,1)
+#     if y == 0: 
+#         if num0<5000:
+#             num0 += 1
+#             y_train.append(y)
+#         else:
+#             y_train.append(y+1)
+#     if y == 1: 
+#         if num1<5000:
+#             num1 += 1
+#             y_train.append(y)
+#         else:
+#             y_train.append(y-1)
+
+# print("y_train:",y_train[:10])
+# print("length",len(y_train))
+# print("type",type(y_train))
+# ynp=np.array(y_train)
+# np.save('a.npy',ynp)  
+
+
+
+# sdata = []
+# for i in range(len(train_texts)):
+#     sdata.append([train_texts[i], y_train[i]])
+# name=['url','score']
+# name=['score']
+# stest=pd.DataFrame(columns=name,data=y_texts)
+# stest.to_csv('num_score.csv',encoding='gbk')
+
+# t = pd.read_csv('num_score.csv',names=['score'])
+# y_train = t.values.tolist()
