@@ -149,7 +149,11 @@ train_classes = to_categorical(train_class_list)
 # model.save("num_model")
 
 # my_model = load_model("num_model")
-train_data = train_data.tolist()
+# train_data = train_data.tolist()
+
+
+
+
 print("train_data:",train_data[:10])
 print("length",len(train_data))
 print("type",type(train_data))
@@ -160,7 +164,7 @@ print("type",type(y_train))
 
 svmclassifier = svm.SVC(kernel='poly', gamma=0.1, C=0.8, verbose=2)
 svmclassifier.fit(train_data, y_train)
-print("SCV: ",svmclassifier.score(train_data, y_train))
+print("\nSCV: ",svmclassifier.score(train_data, y_train))
 rf0 = RandomForestClassifier(oob_score=True, random_state=100)
 rf0.fit(train_data, y_train)
 print("RF: ",rf0.oob_score_)
