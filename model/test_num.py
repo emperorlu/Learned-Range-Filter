@@ -34,11 +34,11 @@ y_texts   = [x  for x in np.random.randint(0,2,a)]
 # for i in range(len(train_texts)):
 #     sdata.append([train_texts[i], y_train[i]])
 # name=['url','score']
-name=['score']
-stest=pd.DataFrame(columns=name,data=y_texts)
-stest.to_csv('num_score.csv',encoding='gbk')
+# name=['score']
+# stest=pd.DataFrame(columns=name,data=y_texts)
+# stest.to_csv('num_score.csv',encoding='gbk')
 
-t = pd.read_csv('num_score.csv',names=['score'])
+t = pd.read_csv('num.csv',names=['score'])
 y_train = t[1:].values.tolist()
 print("y_train:",y_train[:3])
 print("length",len(y_train))
