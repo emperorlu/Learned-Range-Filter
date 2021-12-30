@@ -84,7 +84,7 @@ conv_layers = [[256, 7, 3],
 fully_connected_layers = [64, 4]
 num_of_classes = 2
 dropout_p = 0.1
-optimizer = 'adadelta' #'adam'
+
 loss = 'categorical_crossentropy'
 embedding_weights = []
 # Embedding weights
@@ -129,6 +129,7 @@ for dense_size in fully_connected_layers:
 predictions = Dense(num_of_classes, activation='softmax')(x) #softmax
 # Build model
 # optimizer = optimizers.Adam(learning_rate=0.1, decay=0.001)
+optimizer = 'RMSprop' #'adam'
 model = Model(inputs=inputs, outputs=predictions)
 model.compile(optimizer=optimizer, loss=loss, metrics=['accuracy'])  # Adam, categorical_crossentropy
 model.summary()
