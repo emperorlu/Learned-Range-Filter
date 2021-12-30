@@ -34,8 +34,8 @@ train_texts  = ['{:014b}'.format(x)  for x in np.arange(1,a+1)]
 # name=['url','score']
 # stest=pd.DataFrame(columns=name,data=sdata)
 # stest.to_csv('num.csv',encoding='gbk')
-name=['score']
-t = pd.read_csv('num.csv',names=name)
+
+t = pd.read_csv('num.csv',names='score')
 y_train = t[1:].values.tolist()
 print("y_train:",y_train[:3])
 print("length",len(y_train))
