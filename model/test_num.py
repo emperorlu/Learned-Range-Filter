@@ -73,7 +73,7 @@ print("type",type(train_classes))
 # =====================Char CNN=======================
 # parameter
 input_size = 14
-embedding_size = 11
+embedding_size = 2
 conv_layers = [[256, 7, 3],
             [256, 7, 3],
             [256, 3, -1],
@@ -133,7 +133,7 @@ model.summary()
 
 
 model.fit(train_data, train_classes,
-        batch_size=256,
+        batch_size=1024,
         epochs=30,
         verbose=1)
 model.save("num_model")
