@@ -26,7 +26,7 @@ from sklearn import svm
 import sys
 import random
 
-os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2' 
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3' 
 a = 10000
 
 tk = Tokenizer(num_words=None, char_level=True, oov_token='UNK') 
