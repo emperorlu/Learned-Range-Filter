@@ -108,7 +108,7 @@ inputs = Input(shape=(input_size,), name='input', dtype='int64')  # shape=(?, 10
 # Embedding
 x = embedding_layer(inputs)
 
-# x = GRU(100)(x)
+x = GRU(100)(x)
 
 # Conv
 # for filter_num, filter_size, pooling_size in conv_layers:
@@ -134,7 +134,7 @@ model.summary()
 
 model.fit(train_data, train_classes,
         batch_size=1024,
-        epochs=30,
+        epochs=100,
         verbose=1)
 model.save("num_model")
 
