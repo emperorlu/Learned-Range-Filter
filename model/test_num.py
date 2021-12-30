@@ -32,7 +32,7 @@ a = 10000
 tk = Tokenizer(num_words=None, char_level=True, oov_token='UNK') 
 
 train_texts  = ['{:014b}'.format(x)  for x in range(1,a+1)]
-
+random.shuffle(train_texts)
 adata=np.load('a.npy')
 y_train=adata.tolist()
 
