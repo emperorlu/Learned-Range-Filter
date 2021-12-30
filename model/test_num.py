@@ -13,6 +13,8 @@ from tensorflow.keras.preprocessing.sequence import pad_sequences
 from tensorflow.keras.layers import Input, Embedding, Activation, Flatten, Dense
 from tensorflow.keras.layers import Conv1D, MaxPooling1D, Dropout
 from tensorflow.keras.models import Model, load_model
+from tensorflow.keras import optimizers
+from keras.layers import GRU
 from copy import deepcopy
 from tensorflow.keras.utils import to_categorical
 from sklearn.ensemble import RandomForestClassifier
@@ -82,7 +84,7 @@ conv_layers = [[256, 7, 3],
 fully_connected_layers = [64, 4]
 num_of_classes = 2
 dropout_p = 0.1
-optimizer = 'adam'
+# optimizer = 'adam'
 loss = 'categorical_crossentropy'
 embedding_weights = []
 # Embedding weights
@@ -105,24 +107,33 @@ embedding_layer = Embedding(vocab_size + 1,
 inputs = Input(shape=(input_size,), name='input', dtype='int64')  # shape=(?, 1014)
 # Embedding
 x = embedding_layer(inputs)
-# Conv
-# for filter_num, filter_size, pooling_size in conv_layers:
-x = Conv1D(64, 4)(x)
-x = Activation('relu')(x)
-# if pooling_size != -1:
-x = MaxPooling1D(pool_size=2)(x)  # Final shape=(None, 34, 256)
-x = Flatten()(x)  # (None, 8704)
-# Fully connected layers
-for dense_size in fully_connected_layers:
-    x = Dense(dense_size, activation='relu')(x)  # dense_size == 1024
-    x = Dropout(dropout_p)(x)
+
+x = GRU(10)(x)
+
+# # Conv
+# # for filter_num, filter_size, pooling_size in conv_layers:
+# x = Conv1D(64, 4)(x)
+# x = Activation('relu')(x)
+# # if pooling_size != -1:
+# x = MaxPooling1D(pool_size=2)(x)  # Final shape=(None, 34, 256)
+# x = Flatten()(x)  # (None, 8704)
+# # Fully connected layers
+# for dense_size in fully_connected_layers:
+#     x = Dense(dense_size, activation='relu')(x)  # dense_size == 1024
+#     x = Dropout(dropout_p)(x)
+
+
 # Output Layer
 predictions = Dense(num_of_classes, activation='softmax')(x)
 # Build model
-
+optimizer = optimizers.Adam(learning_rate=0.001, decay=0.0001)
 model = Model(inputs=inputs, outputs=predictions)
 model.compile(optimizer=optimizer, loss=loss, metrics=['accuracy'])  # Adam, categorical_crossentropy
 model.summary()
+
+
+
+
 
 
 model.fit(train_data, train_classes,
@@ -137,13 +148,13 @@ model.save("num_model")
 
 
 
-print("train_data:",train_data[:10])
-print("length",len(train_data))
-print("type",type(train_data))
-# y_train = [x%2 for x in range(1,a+1)]
-print("y_train:",y_train[:10])
-print("length",len(y_train))
-print("type",type(y_train))
+# print("train_data:",train_data[:10])
+# print("length",len(train_data))
+# print("type",type(train_data))
+# # y_train = [x%2 for x in range(1,a+1)]
+# print("y_train:",y_train[:10])
+# print("length",len(y_train))
+# print("type",type(y_train))
 
 # param_grid=[{"kernel":["rbf"],"C":[0.1, 1, 10], "gamma": [1, 0.1, 0.01]},
 #             {"kernel":["poly"],"C": [0.1, 1, 10], "gamma": [1, 0.1, 0.01],"degree":[3,5,10],"coef0":[0,0.1,1]},
