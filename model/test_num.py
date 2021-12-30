@@ -132,13 +132,9 @@ model.compile(optimizer=optimizer, loss=loss, metrics=['accuracy'])  # Adam, cat
 model.summary()
 
 
-
-
-
-
 model.fit(train_data, train_classes,
         batch_size=256,
-        epochs=10,
+        epochs=30,
         verbose=1)
 model.save("num_model")
 
