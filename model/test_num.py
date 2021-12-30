@@ -125,8 +125,8 @@ model.summary()
 
 
 model.fit(train_data, train_classes,
-        batch_size=1024,
-        epochs=1000,
+        batch_size=256,
+        epochs=100,
         verbose=1)
 model.save("num_model")
 
@@ -144,7 +144,7 @@ print("y_train:",y_train[:10])
 print("length",len(y_train))
 print("type",type(y_train))
 
-svmclassifier = svm.SVC(kernel='poly', gamma=0.5, C=0.8, verbose=2)
+svmclassifier = svm.SVC(kernel='poly', gamma=0.8, C=0.8, verbose=1)
 svmclassifier.fit(train_data, y_train)
 print("\nSCV: ",svmclassifier.score(train_data, y_train))
 rf0 = RandomForestClassifier(oob_score=True, random_state=100)
