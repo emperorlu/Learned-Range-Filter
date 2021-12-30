@@ -154,10 +154,10 @@ train_classes = to_categorical(train_class_list)
 
 
 
-svmclassifier = svm.SVC(kernel='poly', gamma=0.1, decision_function_shape='ovo', C=0.6, verbose=2)
+svmclassifier = svm.SVC(kernel='poly', gamma=0.1, C=0.8, verbose=2)
 svmclassifier.fit(train_data, y_train)
 print(svmclassifier.score(train_data, y_train))
-rf0 = RandomForestClassifier(oob_score=True, random_state=10, verbose=2)
+rf0 = RandomForestClassifier(oob_score=True, random_state=100)
 rf0.fit(train_data, y_train)
 print(rf0.oob_score_)
 
