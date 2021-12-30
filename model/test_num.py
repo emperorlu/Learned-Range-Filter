@@ -122,7 +122,7 @@ x = Flatten()(x)  # (None, 8704)
 # Fully connected layers
 for dense_size in fully_connected_layers:
     x = Dense(dense_size, activation='relu')(x)  # dense_size == 1024
-    # x = Dropout(dropout_p)(x)
+    x = Dropout(dropout_p)(x)
 
 
 # Output Layer
