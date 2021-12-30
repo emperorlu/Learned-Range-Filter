@@ -29,8 +29,13 @@ a = 10000
 tk = Tokenizer(num_words=None, char_level=True, oov_token='UNK') 
 
 train_texts  = ['{:014b}'.format(x)  for x in range(1,a+1)]
+
 adata=np.load('a.npy')
 y_train=adata.tolist()
+
+name=['score']
+stest=pd.DataFrame(columns=name,data=y_train)
+stest.to_csv('num_score.csv',encoding='gbk')
 
 # y_train = []
 # num0 = 0; num1 = 0
