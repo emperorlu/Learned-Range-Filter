@@ -150,16 +150,16 @@ param_grid=[{"kernel":["rbf"],"C":[0.1, 1, 10], "gamma": [1, 0.1, 0.01]},
             {"kernel":["sigmoid"], "C": [0.1, 1, 10], "gamma": [1, 0.1, 0.01],"coef0":[0,0.1,1]}]
 
 grid = GridSearchCV(svm.SVC(), param_grid=param_grid, cv=4) 
-grid.fit(train_data,y_train)
+grid.fit(train_data,y_train,verbose=1)
 print('grid_best_params:',  grid.best_params_)
 print('grid.best_score_:', grid.best_score_)
 
 # a = int(sys.argv[1]) 
-svmclassifier = svm.SVC(kernel='rbf', gamma=0.1, C=0.9, verbose=1)
-svmclassifier.fit(train_data, y_train)
+svmclassifier = svm.SVC(kernel='rbf', gamma=0.1, C=0.9)
+svmclassifier.fit(train_data, y_train,verbose=1)
 print("\nSCV: ",svmclassifier.score(train_data, y_train))
 rf0 = RandomForestClassifier(oob_score=True, random_state=100)
-rf0.fit(train_data, y_train)
+rf0.fit(train_data, y_train, verbose=1)
 print("RF: ",rf0.oob_score_)
 
 
