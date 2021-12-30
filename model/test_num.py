@@ -145,7 +145,7 @@ model.summary()
 
 y   = [x  for x in np.random.randint(0,2,a)]
 
-svmclassifier = svm.SVC(kernel='linear', gamma=0.1, decision_function_shape='ovo', C=0.1)
+svmclassifier = svm.SVC(kernel='polynomial', gamma=0.1, decision_function_shape='ovo', C=0.1)
 svmclassifier.fit(train_data, y)
 print(svmclassifier.score(train_data, y))
 rf0 = RandomForestClassifier(oob_score=True, random_state=10)
