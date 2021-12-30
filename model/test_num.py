@@ -28,7 +28,7 @@ a = 10000
 tk = Tokenizer(num_words=None, char_level=True, oov_token='UNK') 
 
 train_texts  = ['{:014b}'.format(x)  for x in np.arange(1,a+1)]
-# y_train  = [x  for x in np.random.randint(0,2,a)]
+y_texts   = [x  for x in np.random.randint(0,2,a)]
 
 # sdata = []
 # for i in range(len(train_texts)):
@@ -142,11 +142,14 @@ model.summary()
 
 # my_model = load_model("num_model")
 
+X  = ['{:014b}'.format(x)  for x in np.arange(1,a+1)]
+y   = [x  for x in np.random.randint(0,2,a)]
+
 svmclassifier = svm.SVC(kernel='linear', gamma=0.1, decision_function_shape='ovo', C=0.1)
-svmclassifier.fit(train_data, y_train)
-print(svmclassifier.score(train_data, y_train))
+svmclassifier.fit(X, y)
+print(svmclassifier.score(X, y))
 rf0 = RandomForestClassifier(oob_score=True, random_state=10)
-rf0.fit(train_data, y_train)
+rf0.fit(X, y)
 print(rf0.oob_score_)
 
 
