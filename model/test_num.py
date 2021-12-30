@@ -26,14 +26,20 @@ a = 10000
 tk = Tokenizer(num_words=None, char_level=True, oov_token='UNK') 
 
 train_texts  = ['{:014b}'.format(x)  for x in np.arange(1,a+1)]
-y_train  = [x  for x in np.random.randint(0,2,a)]
+# y_train  = [x  for x in np.random.randint(0,2,a)]
 
-sdata = []
-for i in range(len(train_texts)):
-    sdata.append([train_texts[i], y_train[i]])
-name=['url','score']
-stest=pd.DataFrame(columns=name,data=sdata)
-stest.to_csv('num.csv',encoding='gbk')
+# sdata = []
+# for i in range(len(train_texts)):
+#     sdata.append([train_texts[i], y_train[i]])
+# name=['url','score']
+# stest=pd.DataFrame(columns=name,data=sdata)
+# stest.to_csv('num.csv',encoding='gbk')
+name=['score']
+t = pd.read_csv('num.csv',names=name)
+y_train = t[1:].values.tolist()
+print("y_train:",y_train[:3])
+print("length",len(y_train))
+print("type",type(y_train))
 
 tk.fit_on_texts(train_texts)
 alphabet = "0123456789"
@@ -119,12 +125,6 @@ model = Model(inputs=inputs, outputs=predictions)
 model.compile(optimizer=optimizer, loss=loss, metrics=['accuracy'])  # Adam, categorical_crossentropy
 model.summary()
 
-print("1 train_data:",train_data[:3])
-print("length",len(train_data))
-print("length",type(train_data))
-print("2 train_classes:",train_classes[:3])
-print("length",len(train_classes))
-print("length",type(train_classes))
 
 model.fit(train_data, train_classes,
         batch_size=1024,
