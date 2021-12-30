@@ -145,7 +145,7 @@ print("length",len(y_train))
 print("type",type(y_train))
 
 # a = int(sys.argv[1]) 
-svmclassifier = svm.SVC(kernel='poly', gamma=0.8, C=0.8, verbose=1)
+svmclassifier = svm.SVC(kernel='rbf', gamma=0.1, C=0.9, verbose=1)
 svmclassifier.fit(train_data, y_train)
 print("\nSCV: ",svmclassifier.score(train_data, y_train))
 rf0 = RandomForestClassifier(oob_score=True, random_state=100)
