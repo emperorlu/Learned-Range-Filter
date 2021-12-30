@@ -48,9 +48,7 @@ y_train=a.tolist()
 # for x in y_train:
 #     y.append(int(x))
 
-print("y_train:",y_train[:10])
-print("length",len(y_train))
-print("type",type(y_train))
+
 
 
 tk.fit_on_texts(train_texts)
@@ -152,14 +150,20 @@ train_classes = to_categorical(train_class_list)
 
 # my_model = load_model("num_model")
 
+print("train_data:",train_data[:10])
+print("length",len(train_data))
+print("type",type(train_data))
 
+print("y_train:",y_train[:10])
+print("length",len(y_train))
+print("type",type(y_train))
 
 svmclassifier = svm.SVC(kernel='poly', gamma=0.1, C=0.8, verbose=2)
 svmclassifier.fit(train_data, y_train)
-print(svmclassifier.score(train_data, y_train))
+print("SCV: ",svmclassifier.score(train_data, y_train))
 rf0 = RandomForestClassifier(oob_score=True, random_state=100)
 rf0.fit(train_data, y_train)
-print(rf0.oob_score_)
+print("RF: ",rf0.oob_score_)
 
 
 # def test_model(test_texts):
