@@ -40,9 +40,16 @@ y_texts   = [x  for x in np.random.randint(0,2,a)]
 
 t = pd.read_csv('num.csv',names=['score'])
 y_train = t[1:].values.tolist()
+y = []
+for x in y_train:
+    y.append(int(x))
+
 print("y_train:",y_train[:3])
 print("length",len(y_train))
 print("type",type(y_train))
+print("y:",y[:3])
+print("length",len(y))
+print("type",type(y))
 
 tk.fit_on_texts(train_texts)
 alphabet = "0123456789"
