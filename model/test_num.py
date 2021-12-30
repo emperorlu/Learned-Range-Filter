@@ -41,21 +41,17 @@ y_texts   = [x  for x in np.random.randint(0,2,a)]
 # t = pd.read_csv('num_score.csv',names=['score'])
 # y_train = t.values.tolist()
 
-a=np.array(y_texts)
-np.save('a.npy',a)  
+# a=np.array(y_texts)
+# np.save('a.npy',a)  
 a=np.load('a.npy')
 y_train=a.tolist()
-
-y = []
 # for x in y_train:
 #     y.append(int(x))
 
-print("y_train:",y_train[:3])
+print("y_train:",y_train[:10])
 print("length",len(y_train))
 print("type",type(y_train))
-print("y:",y[:3])
-print("length",len(y))
-print("type",type(y))
+
 
 tk.fit_on_texts(train_texts)
 alphabet = "0123456789"
@@ -157,13 +153,12 @@ train_classes = to_categorical(train_class_list)
 # my_model = load_model("num_model")
 
 
-# y   = [x  for x in np.random.randint(0,2,a)]
 
 svmclassifier = svm.SVC(kernel='poly', gamma=0.1, decision_function_shape='ovo', C=0.6, verbose=2)
-svmclassifier.fit(train_data, y)
-print(svmclassifier.score(train_data, y))
+svmclassifier.fit(train_data, y_train)
+print(svmclassifier.score(train_data, y_train))
 rf0 = RandomForestClassifier(oob_score=True, random_state=10, verbose=2)
-rf0.fit(train_data, y)
+rf0.fit(train_data, y_train)
 print(rf0.oob_score_)
 
 
