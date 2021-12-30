@@ -37,7 +37,7 @@ adata=np.load('a.npy')
 y_train=adata.tolist()
 
 tk.fit_on_texts(train_texts)
-alphabet = "0123456789"
+alphabet = "01"
 
 char_dict = {}
 for i, char in enumerate(alphabet):
