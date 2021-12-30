@@ -1,6 +1,7 @@
 import numpy as np
 import os
 # from .session import Session
+from sklearn import model_selection
 from scipy import optimize
 # from tqdm.notebook import tqdm
 # from sklearn.metrics import classification_report,accuracy_score
@@ -151,7 +152,13 @@ train_classes = to_categorical(train_class_list)
 # my_model = load_model("num_model")
 # train_data = train_data.tolist()
 
-
+# test_df = pd.read_csv('num.csv')
+# #test_df = test_df[-2:]
+# test_df = checkInf(test_df)
+# trainSet = transfer_to_TrainArray(test_df)
+# testSet = transfer_to_TestArray(test_df)
+# x_train, x_test, y_train, y_test = \
+#     model_selection.train_test_split(trainSet, testSet, random_state=1, test_size=0.2)
 
 
 print("train_data:",train_data[:10])

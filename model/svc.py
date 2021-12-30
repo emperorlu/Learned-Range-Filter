@@ -62,6 +62,13 @@ if __name__ == "__main__":
     testSet = transfer_to_TestArray(test_df)
     x_train, x_test, y_train, y_test = \
         model_selection.train_test_split(trainSet, testSet, random_state=1, test_size=0.2)
+    print("train_data:",x_train[:10])
+    print("length",len(x_train))
+    print("type",type(x_train))
+
+    print("y_train:",y_train[:10])
+    print("length",len(y_train))
+    print("type",type(y_train))
 
     svmclassifier = svm.SVC(kernel='linear', gamma=0.1, decision_function_shape='ovo', C=0.1)
     svmclassifier.fit(x_train, y_train)
