@@ -23,10 +23,10 @@ from sklearn import svm
 # import random
 # import plotly.io as pio
 # import matplotlib.pyplot as plt
-os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 import sys
 import random
 
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2' 
 a = 10000
 
 tk = Tokenizer(num_words=None, char_level=True, oov_token='UNK') 
@@ -81,10 +81,10 @@ conv_layers = [[256, 7, 3],
             [256, 3, -1],
             [256, 3, 3]]
 
-fully_connected_layers = [64, 4]
+fully_connected_layers = [128, 4]
 num_of_classes = 2
 dropout_p = 0.1
-# optimizer = 'adam'
+optimizer = 'adam'
 loss = 'categorical_crossentropy'
 embedding_weights = []
 # Embedding weights
@@ -112,7 +112,7 @@ x = embedding_layer(inputs)
 
 # Conv
 # for filter_num, filter_size, pooling_size in conv_layers:
-x = Conv1D(64, 4)(x)
+x = Conv1D(128, 4)(x)
 x = Activation('relu')(x)
 # if pooling_size != -1:
 x = MaxPooling1D(pool_size=2)(x)  # Final shape=(None, 34, 256)
@@ -126,7 +126,7 @@ for dense_size in fully_connected_layers:
 # Output Layer
 predictions = Dense(num_of_classes, activation='softmax')(x)
 # Build model
-optimizer = optimizers.Adam(learning_rate=0.1, decay=0.001)
+# optimizer = optimizers.Adam(learning_rate=0.1, decay=0.001)
 model = Model(inputs=inputs, outputs=predictions)
 model.compile(optimizer=optimizer, loss=loss, metrics=['accuracy'])  # Adam, categorical_crossentropy
 model.summary()
