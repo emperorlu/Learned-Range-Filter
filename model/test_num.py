@@ -44,8 +44,8 @@ y_texts   = [x  for x in np.random.randint(0,2,a)]
 
 # a=np.array(y_texts)
 # np.save('a.npy',a)  
-a=np.load('a.npy')
-y_train=a.tolist()
+adata=np.load('a.npy')
+y_train=adata.tolist()
 # for x in y_train:
 #     y.append(int(x))
 
@@ -164,10 +164,7 @@ train_classes = to_categorical(train_class_list)
 print("train_data:",train_data[:10])
 print("length",len(train_data))
 print("type",type(train_data))
-for i in range(1,100): 
-    print("x:",i)
-    print("type",type(i))
-y_train2 = [x for x in range(1,a+1)]
+y_train2 = [x%2 for x in range(1,a+1)]
 print("y_train:",y_train2[:10])
 print("length",len(y_train2))
 print("type",type(y_train2))
