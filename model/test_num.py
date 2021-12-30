@@ -3,6 +3,7 @@ import os
 # from .session import Session
 from sklearn import model_selection
 from scipy import optimize
+from sklearn.model_selection import GridSearchCV
 # from tqdm.notebook import tqdm
 # from sklearn.metrics import classification_report,accuracy_score
 import pandas as pd
@@ -126,7 +127,7 @@ model.summary()
 
 model.fit(train_data, train_classes,
         batch_size=256,
-        epochs=1,
+        epochs=10,
         verbose=1)
 model.save("num_model")
 
@@ -143,6 +144,15 @@ print("type",type(train_data))
 print("y_train:",y_train[:10])
 print("length",len(y_train))
 print("type",type(y_train))
+
+param_grid=[{"kernel":["rbf"],"C":[0.1, 1, 10], "gamma": [1, 0.1, 0.01]},
+            {"kernel":["poly"],"C": [0.1, 1, 10], "gamma": [1, 0.1, 0.01],"degree":[3,5,10],"coef0":[0,0.1,1]},
+            {"kernel":["sigmoid"], "C": [0.1, 1, 10], "gamma": [1, 0.1, 0.01],"coef0":[0,0.1,1]}]
+
+grid = GridSearchCV(svm.SVC(), param_grid=param_grid, cv=4) 
+grid.fit(train_data,y_train)
+print('grid_best_params:',  grid.best_params_)
+print('grid.best_score_:', grid.best_score_)
 
 # a = int(sys.argv[1]) 
 svmclassifier = svm.SVC(kernel='rbf', gamma=0.1, C=0.9, verbose=1)
