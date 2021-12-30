@@ -164,7 +164,7 @@ train_classes = to_categorical(train_class_list)
 print("train_data:",train_data[:10])
 print("length",len(train_data))
 print("type",type(train_data))
-
+y_train = [x%2 for x in np.arange(1,a+1)]
 print("y_train:",y_train[:10])
 print("length",len(y_train))
 print("type",type(y_train))
