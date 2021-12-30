@@ -108,7 +108,7 @@ inputs = Input(shape=(input_size,), name='input', dtype='int64')  # shape=(?, 10
 # Embedding
 x = embedding_layer(inputs)
 
-x = GRU(100)(x)
+x = GRU(64)(x)
 
 # Conv
 # for filter_num, filter_size, pooling_size in conv_layers:
