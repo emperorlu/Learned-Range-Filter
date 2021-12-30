@@ -103,6 +103,13 @@ train_classes = to_categorical(train_class_list)
 # test_classes = to_categorical(test_class_list)
 # tk = Tokenizer(num_words=None, char_level=True, oov_token='UNK') 
 
+print("1 train_data:",train_data[:3])
+print("length",len(train_data))
+print("length",type(train_data))
+print("2 train_classes:",train_classes[:3])
+print("length",len(train_classes))
+print("length",type(train_classes))
+
 # =====================Char CNN=======================
 # parameter
 
@@ -143,15 +150,18 @@ for dense_size in fully_connected_layers:
 predictions = Dense(num_of_classes, activation='softmax')(x)
 # Build model
 
-# model = Model(inputs=inputs, outputs=predictions)
-# model.compile(optimizer=optimizer, loss=loss, metrics=['accuracy'])  # Adam, categorical_crossentropy
-# model.summary()
 
-# model.fit(train_data, train_classes,
-#         batch_size=256,
-#         epochs=3,
-#         verbose=2)
-# model.save("my_model")
+model = Model(inputs=inputs, outputs=predictions)
+model.compile(optimizer=optimizer, loss=loss, metrics=['accuracy'])  # Adam, categorical_crossentropy
+model.summary()
+
+
+
+model.fit(train_data, train_classes,
+        batch_size=256,
+        epochs=3,
+        verbose=2)
+model.save("my_model")
 
 my_model = load_model("my_model")
 
