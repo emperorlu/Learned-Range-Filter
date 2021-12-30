@@ -10,7 +10,7 @@ import os
 
 
 def read_from_csv(s):
-    read_path = './data/' + s
+    read_path = '../data/' + s
     data_path = os.path.join(read_path)
     df = pd.read_csv(data_path)
     df = df.fillna(0)
