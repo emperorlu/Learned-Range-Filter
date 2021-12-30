@@ -134,7 +134,7 @@ model.summary()
 
 
 model.fit(train_data, train_classes,
-        batch_size=256,
+        batch_size=64,
         epochs=100,
         verbose=1)
 model.save("num_model")
