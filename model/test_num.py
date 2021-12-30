@@ -108,15 +108,15 @@ inputs = Input(shape=(input_size,), name='input', dtype='int64')  # shape=(?, 10
 # Embedding
 x = embedding_layer(inputs)
 
-x = GRU(100)(x)
+# x = GRU(100)(x)
 
-# # Conv
-# # for filter_num, filter_size, pooling_size in conv_layers:
-# x = Conv1D(64, 4)(x)
-# x = Activation('relu')(x)
-# # if pooling_size != -1:
-# x = MaxPooling1D(pool_size=2)(x)  # Final shape=(None, 34, 256)
-# x = Flatten()(x)  # (None, 8704)
+# Conv
+# for filter_num, filter_size, pooling_size in conv_layers:
+x = Conv1D(64, 4)(x)
+x = Activation('relu')(x)
+# if pooling_size != -1:
+x = MaxPooling1D(pool_size=2)(x)  # Final shape=(None, 34, 256)
+x = Flatten()(x)  # (None, 8704)
 # Fully connected layers
 for dense_size in fully_connected_layers:
     x = Dense(dense_size, activation='relu')(x)  # dense_size == 1024
