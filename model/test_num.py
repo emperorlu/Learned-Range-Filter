@@ -34,10 +34,11 @@ y_texts   = [x  for x in np.random.randint(0,2,a)]
 # for i in range(len(train_texts)):
 #     sdata.append([train_texts[i], y_train[i]])
 # name=['url','score']
-# stest=pd.DataFrame(columns=name,data=sdata)
-# stest.to_csv('num.csv',encoding='gbk')
+name=['score']
+stest=pd.DataFrame(columns=name,data=y_texts)
+stest.to_csv('num_score.csv',encoding='gbk')
 
-t = pd.read_csv('num.csv',names=['score'])
+t = pd.read_csv('num_score.csv',names=['score'])
 y_train = t[1:].values.tolist()
 print("y_train:",y_train[:3])
 print("length",len(y_train))
@@ -70,12 +71,12 @@ train_data = np.array(train_data, dtype='float32')
 train_class_list = [x  for x in y_train]
 
 train_classes = to_categorical(train_class_list)
-print("1 train_data:",train_data[:3])
-print("length",len(train_data))
-print("type",type(train_data))
-print("2 train_classes:",train_classes[:3])
-print("length",len(train_classes))
-print("type",type(train_classes))
+# print("1 train_data:",train_data[:3])
+# print("length",len(train_data))
+# print("type",type(train_data))
+# print("2 train_classes:",train_classes[:3])
+# print("length",len(train_classes))
+# print("type",type(train_classes))
 
 # # =====================Char CNN=======================
 # # parameter
@@ -143,13 +144,13 @@ print("type",type(train_classes))
 # my_model = load_model("num_model")
 
 
-y   = [x  for x in np.random.randint(0,2,a)]
+# y   = [x  for x in np.random.randint(0,2,a)]
 
 svmclassifier = svm.SVC(kernel='poly', gamma=0.1, decision_function_shape='ovo', C=0.1, verbose=2)
-svmclassifier.fit(train_data, y)
-print(svmclassifier.score(train_data, y))
+svmclassifier.fit(train_data, y_train)
+print(svmclassifier.score(train_data, y_train))
 rf0 = RandomForestClassifier(oob_score=True, random_state=10)
-rf0.fit(train_data, y)
+rf0.fit(train_data, y_train)
 print(rf0.oob_score_)
 
 
