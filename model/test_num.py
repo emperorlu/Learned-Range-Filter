@@ -149,7 +149,7 @@ param_grid=[{"kernel":["rbf"],"C":[0.1, 1, 10], "gamma": [1, 0.1, 0.01]},
             {"kernel":["poly"],"C": [0.1, 1, 10], "gamma": [1, 0.1, 0.01],"degree":[3,5,10],"coef0":[0,0.1,1]},
             {"kernel":["sigmoid"], "C": [0.1, 1, 10], "gamma": [1, 0.1, 0.01],"coef0":[0,0.1,1]}]
 
-grid = GridSearchCV(svm.SVC(), param_grid=param_grid, cv=4,verbose=True)
+grid = GridSearchCV(svm.SVC(), param_grid=param_grid, cv=4, verbose=True)
 grid.fit(train_data,y_train, verbose=True)
 print('grid_best_params:',  grid.best_params_)
 print('grid.best_score_:', grid.best_score_)
