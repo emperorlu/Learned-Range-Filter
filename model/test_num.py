@@ -13,6 +13,8 @@ from tensorflow.keras.layers import Conv1D, MaxPooling1D, Dropout
 from tensorflow.keras.models import Model, load_model
 from copy import deepcopy
 from tensorflow.keras.utils import to_categorical
+from sklearn.ensemble import RandomForestClassifier
+from sklearn import svm
 # import plotly.graph_objects as go
 # import random
 # import plotly.io as pio
@@ -132,14 +134,20 @@ model.compile(optimizer=optimizer, loss=loss, metrics=['accuracy'])  # Adam, cat
 model.summary()
 
 
-model.fit(train_data, train_classes,
-        batch_size=1024,
-        epochs=10000,
-        verbose=2)
-model.save("num_model")
+# model.fit(train_data, train_classes,
+#         batch_size=1024,
+#         epochs=10000,
+#         verbose=2)
+# model.save("num_model")
 
-my_model = load_model("num_model")
+# my_model = load_model("num_model")
 
+svmclassifier = svm.SVC(kernel='linear', gamma=0.1, decision_function_shape='ovo', C=0.1)
+svmclassifier.fit(train_data, train_classes)
+print(svmclassifier.score(train_data, train_classes))
+rf0 = RandomForestClassifier(oob_score=True, random_state=10)
+rf0.fit(train_data, train_classes)
+print(rf0.oob_score_)
 
 
 # def test_model(test_texts):
