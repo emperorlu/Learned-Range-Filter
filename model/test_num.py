@@ -156,7 +156,7 @@ print('grid.best_score_:', grid.best_score_)
 
 # a = int(sys.argv[1]) 
 svmclassifier = svm.SVC(kernel='rbf', gamma=0.1, C=0.9, verbose=1)
-svmclassifier.fit(train_data, y_train, verbose=True)
+svmclassifier.fit(train_data, y_train)
 print("\nSCV: ",svmclassifier.score(train_data, y_train))
 rf0 = RandomForestClassifier(oob_score=True, random_state=100)
 rf0.fit(train_data, y_train)
