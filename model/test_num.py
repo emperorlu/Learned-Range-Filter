@@ -23,7 +23,7 @@ from sklearn import svm
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 import sys
 import random
-# a = int(sys.argv[1]) 
+
 a = 10000
 
 tk = Tokenizer(num_words=None, char_level=True, oov_token='UNK') 
@@ -144,6 +144,7 @@ print("y_train:",y_train[:10])
 print("length",len(y_train))
 print("type",type(y_train))
 
+# a = int(sys.argv[1]) 
 svmclassifier = svm.SVC(kernel='poly', gamma=0.8, C=0.8, verbose=1)
 svmclassifier.fit(train_data, y_train)
 print("\nSCV: ",svmclassifier.score(train_data, y_train))
