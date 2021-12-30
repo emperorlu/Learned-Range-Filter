@@ -73,7 +73,7 @@ print("type",type(train_classes))
 # =====================Char CNN=======================
 # parameter
 input_size = 14
-embedding_size = 2
+embedding_size = 3
 conv_layers = [[256, 7, 3],
             [256, 7, 3],
             [256, 3, -1],
