@@ -37,8 +37,8 @@ train_texts  = ['{:014b}'.format(x)  for x in np.arange(1,a+1)]
 # stest=pd.DataFrame(columns=name,data=sdata)
 # stest.to_csv('num.csv',encoding='gbk')
 
-y_train = pd.read_csv('num.csv',names=['score'])
-# y_train = t[1:].values.tolist()
+t = pd.read_csv('num.csv',names=['score'])
+y_train = t[1:].values.tolist()
 print("y_train:",y_train[:3])
 print("length",len(y_train))
 print("type",type(y_train))
@@ -143,10 +143,10 @@ model.summary()
 # my_model = load_model("num_model")
 
 svmclassifier = svm.SVC(kernel='linear', gamma=0.1, decision_function_shape='ovo', C=0.1)
-svmclassifier.fit(train_data, train_classes)
-print(svmclassifier.score(train_data, train_classes))
+svmclassifier.fit(train_data, y_train)
+print(svmclassifier.score(train_data, y_train))
 rf0 = RandomForestClassifier(oob_score=True, random_state=10)
-rf0.fit(train_data, train_classes)
+rf0.fit(train_data, y_train)
 print(rf0.oob_score_)
 
 
