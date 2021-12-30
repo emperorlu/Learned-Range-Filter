@@ -75,10 +75,10 @@ train_data = np.array(train_data, dtype='float32')
 train_class_list = [x  for x in y_train]
 
 train_classes = to_categorical(train_class_list)
-print("1 train_data:",train_data[:3])
+print("1 train_data:",train_data[:10])
 print("length",len(train_data))
 print("type",type(train_data))
-print("2 train_classes:",train_classes[:3])
+print("2 train_classes:",train_classes[:10])
 print("length",len(train_classes))
 print("type",type(train_classes))
 
