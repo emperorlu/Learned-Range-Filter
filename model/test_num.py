@@ -43,9 +43,8 @@ y_texts   = [x  for x in np.random.randint(0,2,a)]
 
 a=np.array(y_texts)
 np.save('a.npy',a)  
-
 a=np.load('a.npy')
-a=a.tolist()
+y_train=a.tolist()
 
 y = []
 # for x in y_train:
