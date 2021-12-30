@@ -29,7 +29,7 @@ a = 10000
 tk = Tokenizer(num_words=None, char_level=True, oov_token='UNK') 
 
 train_texts  = ['{:014b}'.format(x)  for x in range(1,a+1)]
-y_texts   = [x  for x in np.random.randint(0,2,a)]
+y_train   = [x%2 for x in range(1,a+1)]
 
 # sdata = []
 # for i in range(len(train_texts)):
@@ -44,12 +44,8 @@ y_texts   = [x  for x in np.random.randint(0,2,a)]
 
 # a=np.array(y_texts)
 # np.save('a.npy',a)  
-adata=np.load('a.npy')
-y_train=adata.tolist()
-# for x in y_train:
-#     y.append(int(x))
-
-
+# adata=np.load('a.npy')
+# y_train=adata.tolist()
 
 
 tk.fit_on_texts(train_texts)
@@ -86,88 +82,82 @@ train_classes = to_categorical(train_class_list)
 # print("length",len(train_classes))
 # print("type",type(train_classes))
 
-# # =====================Char CNN=======================
-# # parameter
-# input_size = 14
-# embedding_size = 11
-# conv_layers = [[1024, 7, 3],
-#             [1024, 7, 3],
-#             [1024, 3, -1],
-#             [1024, 3, -1],
-#             [1024, 3, -1],
-#             [1024, 3, 3]]
+# =====================Char CNN=======================
+# parameter
+input_size = 14
+embedding_size = 11
+conv_layers = [[1024, 7, 3],
+            [1024, 7, 3],
+            [1024, 3, -1],
+            [1024, 3, -1],
+            [1024, 3, -1],
+            [1024, 3, 3]]
 
-# fully_connected_layers = [64, 4]
-# num_of_classes = 2
-# dropout_p = 0.1
-# optimizer = 'adam'
-# loss = 'categorical_crossentropy'
-# embedding_weights = []
-# # Embedding weights
-# # (70, 69)
-# vocab_size = len(tk.word_index)
-# embedding_weights.append(np.zeros(vocab_size))  # (0, 69)
+fully_connected_layers = [64, 4]
+num_of_classes = 2
+dropout_p = 0.1
+optimizer = 'adam'
+loss = 'categorical_crossentropy'
+embedding_weights = []
+# Embedding weights
+# (70, 69)
+vocab_size = len(tk.word_index)
+embedding_weights.append(np.zeros(vocab_size))  # (0, 69)
 
-# for char, i in tk.word_index.items():  # from index 1 to 69
-#     onehot = np.zeros(vocab_size)
-#     onehot[i-1] = 1
-#     embedding_weights.append(onehot)
+for char, i in tk.word_index.items():  # from index 1 to 69
+    onehot = np.zeros(vocab_size)
+    onehot[i-1] = 1
+    embedding_weights.append(onehot)
 
-# embedding_weights = np.array(embedding_weights)
+embedding_weights = np.array(embedding_weights)
 
-# # Embedding layer Initialization
-# embedding_layer = Embedding(vocab_size + 1,
-#                             embedding_size,
-#                             input_length=input_size,
-#                             weights=[embedding_weights])
-# inputs = Input(shape=(input_size,), name='input', dtype='int64')  # shape=(?, 1014)
-# # Embedding
-# x = embedding_layer(inputs)
-# # Conv
-# # for filter_num, filter_size, pooling_size in conv_layers:
-# x = Conv1D(64, 4)(x)
-# x = Activation('relu')(x)
-# # if pooling_size != -1:
-# x = MaxPooling1D(pool_size=2)(x)  # Final shape=(None, 34, 256)
-# x = Flatten()(x)  # (None, 8704)
-# # Fully connected layers
-# for dense_size in fully_connected_layers:
-#     x = Dense(dense_size, activation='relu')(x)  # dense_size == 1024
-#     x = Dropout(dropout_p)(x)
-# # Output Layer
-# predictions = Dense(num_of_classes, activation='softmax')(x)
-# # Build model
+# Embedding layer Initialization
+embedding_layer = Embedding(vocab_size + 1,
+                            embedding_size,
+                            input_length=input_size,
+                            weights=[embedding_weights])
+inputs = Input(shape=(input_size,), name='input', dtype='int64')  # shape=(?, 1014)
+# Embedding
+x = embedding_layer(inputs)
+# Conv
+# for filter_num, filter_size, pooling_size in conv_layers:
+x = Conv1D(64, 4)(x)
+x = Activation('relu')(x)
+# if pooling_size != -1:
+x = MaxPooling1D(pool_size=2)(x)  # Final shape=(None, 34, 256)
+x = Flatten()(x)  # (None, 8704)
+# Fully connected layers
+for dense_size in fully_connected_layers:
+    x = Dense(dense_size, activation='relu')(x)  # dense_size == 1024
+    x = Dropout(dropout_p)(x)
+# Output Layer
+predictions = Dense(num_of_classes, activation='softmax')(x)
+# Build model
 
-# model = Model(inputs=inputs, outputs=predictions)
-# model.compile(optimizer=optimizer, loss=loss, metrics=['accuracy'])  # Adam, categorical_crossentropy
-# model.summary()
+model = Model(inputs=inputs, outputs=predictions)
+model.compile(optimizer=optimizer, loss=loss, metrics=['accuracy'])  # Adam, categorical_crossentropy
+model.summary()
 
 
-# model.fit(train_data, train_classes,
-#         batch_size=1024,
-#         epochs=10000,
-#         verbose=2)
-# model.save("num_model")
+model.fit(train_data, train_classes,
+        batch_size=1024,
+        epochs=10000,
+        verbose=2)
+model.save("num_model")
 
 # my_model = load_model("num_model")
-# train_data = train_data.tolist()
 
 # test_df = pd.read_csv('num.csv')
-# #test_df = test_df[-2:]
-# test_df = checkInf(test_df)
-# trainSet = transfer_to_TrainArray(test_df)
-# testSet = transfer_to_TestArray(test_df)
-# x_train, x_test, y_train, y_test = \
-#     model_selection.train_test_split(trainSet, testSet, random_state=1, test_size=0.2)
+
 
 
 print("train_data:",train_data[:10])
 print("length",len(train_data))
 print("type",type(train_data))
-y_train2 = [x%2 for x in range(1,a+1)]
-print("y_train:",y_train2[:10])
-print("length",len(y_train2))
-print("type",type(y_train2))
+# y_train = [x%2 for x in range(1,a+1)]
+print("y_train:",y_train[:10])
+print("length",len(y_train))
+print("type",type(y_train))
 
 svmclassifier = svm.SVC(kernel='poly', gamma=0.1, C=0.8, verbose=2)
 svmclassifier.fit(train_data, y_train)
