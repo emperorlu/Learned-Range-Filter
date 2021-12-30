@@ -103,12 +103,12 @@ train_classes = to_categorical(train_class_list)
 # test_classes = to_categorical(test_class_list)
 # tk = Tokenizer(num_words=None, char_level=True, oov_token='UNK') 
 
-print("1 train_data:",train_data[:3])
-print("length",len(train_data))
-print("length",type(train_data))
-print("2 train_classes:",train_classes[:3])
-print("length",len(train_classes))
-print("length",type(train_classes))
+# print("1 train_data:",train_data[:3])
+# print("length",len(train_data))
+# print("length",type(train_data))
+# print("2 train_classes:",train_classes[:3])
+# print("length",len(train_classes))
+# print("length",type(train_classes))
 
 # =====================Char CNN=======================
 # parameter
