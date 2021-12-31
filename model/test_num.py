@@ -111,9 +111,10 @@ x = embedding_layer(inputs)
 
 # x = GRU(64)(x)
 # x = LSTM(64)(x)
-x = Bidirectional(LSTM(64, activation='relu', return_sequences=True))(x)
+# Bidirectional(
+x = LSTM(64, activation='relu', return_sequences=True)(x)
 x = Dropout(0.2)(x)
-x = Bidirectional(LSTM(64, activation='relu', return_sequences=False))(x)
+x = LSTM(64, activation='relu', return_sequences=False)(x)
 x = Dropout(0.2)(x)
 
 # # Conv
