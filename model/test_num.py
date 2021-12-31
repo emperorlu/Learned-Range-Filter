@@ -46,10 +46,6 @@ for i, char in enumerate(alphabet):
 tk.word_index = char_dict.copy()
 tk.word_index[tk.oov_token] = max(char_dict.values()) + 1
 
-# test_texts = tk.texts_to_sequences(test_texts)
-# data = pad_sequences(test_texts, maxlen=1014, padding='post')
-# data = np.array(data, dtype='float32')
-
 
 train_texts = tk.texts_to_sequences(train_texts)
 
@@ -59,110 +55,103 @@ train_data = pad_sequences(train_texts, maxlen=14, padding='post')
 # Convert to numpy array
 train_data = np.array(train_data, dtype='float32')
 
-# =======================Get classes================
-train_class_list = [x  for x in y_train]
 
-train_classes = to_categorical(train_class_list)
-# print("1 train_data:",train_data[:10])
-# print("length",len(train_data))
-# print("type",type(train_data))
-# print("2 train_classes:",train_classes[:10])
-# print("length",len(train_classes))
-# print("type",type(train_classes))
+# 训练阶段
+# # =======================Get classes================
+# train_class_list = [x  for x in y_train]
 
-# =====================Char CNN=======================
-# parameter
-input_size = 14
-embedding_size = 3
-conv_layers = [[256, 7, 3],
-            # [256, 7, 3],
-            [256, 3, -1],
-            # [256, 3, -1],
-            # [256, 3, -1],
-            [256, 3, 3]]
+# train_classes = to_categorical(train_class_list)
+# # print("1 train_data:",train_data[:10])
+# # print("length",len(train_data))
+# # print("type",type(train_data))
+# # print("2 train_classes:",train_classes[:10])
+# # print("length",len(train_classes))
+# # print("type",type(train_classes))
 
-fully_connected_layers = [64, 4]
-num_of_classes = 2
-dropout_p = 0.1
+# # =====================Char CNN=======================
+# # parameter
+# input_size = 14
+# embedding_size = 3
+# conv_layers = [[256, 7, 3],
+#             # [256, 7, 3],
+#             [256, 3, -1],
+#             # [256, 3, -1],
+#             # [256, 3, -1],
+#             [256, 3, 3]]
 
-loss = 'categorical_crossentropy'
-embedding_weights = []
-# Embedding weights
-# (70, 69)
-vocab_size = len(tk.word_index)
-print("vocab_size",vocab_size)
-embedding_weights.append(np.zeros(vocab_size))  # (0, 69)
+# fully_connected_layers = [64, 4]
+# num_of_classes = 2
+# dropout_p = 0.1
 
-for char, i in tk.word_index.items():  # from index 1 to 69
-    onehot = np.zeros(vocab_size)
-    onehot[i-1] = 1
-    embedding_weights.append(onehot)
+# loss = 'categorical_crossentropy'
+# embedding_weights = []
+# # Embedding weights
+# # (70, 69)
+# vocab_size = len(tk.word_index)
+# print("vocab_size",vocab_size)
+# embedding_weights.append(np.zeros(vocab_size))  # (0, 69)
 
-embedding_weights = np.array(embedding_weights)
+# for char, i in tk.word_index.items():  # from index 1 to 69
+#     onehot = np.zeros(vocab_size)
+#     onehot[i-1] = 1
+#     embedding_weights.append(onehot)
 
-# Embedding layer Initialization
-embedding_layer = Embedding(vocab_size + 1,
-                            embedding_size,
-                            input_length=input_size,
-                            weights=[embedding_weights])
-inputs = Input(shape=(input_size,), name='input', dtype='int64')  # shape=(?, 1014)
-# Embedding
-x = embedding_layer(inputs)
+# embedding_weights = np.array(embedding_weights)
 
-# x = GRU(64)(x)
-# x = LSTM(64)(x)
-# Bidirectional(
-x = LSTM(64, activation='relu', return_sequences=True)(x)
-# x = Dropout(0.2)(x)
-x = LSTM(64, activation='relu', return_sequences=False)(x)
-# x = Dropout(0.2)(x)
+# # Embedding layer Initialization
+# embedding_layer = Embedding(vocab_size + 1,
+#                             embedding_size,
+#                             input_length=input_size,
+#                             weights=[embedding_weights])
+# inputs = Input(shape=(input_size,), name='input', dtype='int64')  # shape=(?, 1014)
+# # Embedding
+# x = embedding_layer(inputs)
 
-# # Conv
-# # for filter_num, filter_size, pooling_size in conv_layers:
-# x = Conv1D(64, 4, kernel_initializer='random_normal')(x)
-# x = Activation('relu')(x)
-# # if pooling_size != -1:
-# x = MaxPooling1D(pool_size=2)(x)  # Final shape=(None, 34, 256)
-# x = Conv1D(64, 4, kernel_initializer='random_normal')(x)
-# x = Activation('relu')(x)
-# # if pooling_size != -1:
-# x = MaxPooling1D(pool_size=2)(x)  # Final shape=(None, 34, 256)
+# # x = GRU(64)(x)
+# # x = LSTM(64)(x)
+# # Bidirectional(
+# x = LSTM(64, activation='relu', return_sequences=True)(x)
+# # x = Dropout(0.2)(x)
+# x = LSTM(64, activation='relu', return_sequences=False)(x)
+# # x = Dropout(0.2)(x)
 
-# x = Flatten()(x)  # (None, 8704)
+# # # Conv
+# # # for filter_num, filter_size, pooling_size in conv_layers:
+# # x = Conv1D(64, 4, kernel_initializer='random_normal')(x)
+# # x = Activation('relu')(x)
+# # # if pooling_size != -1:
+# # x = MaxPooling1D(pool_size=2)(x)  # Final shape=(None, 34, 256)
+# # x = Conv1D(64, 4, kernel_initializer='random_normal')(x)
+# # x = Activation('relu')(x)
+# # # if pooling_size != -1:
+# # x = MaxPooling1D(pool_size=2)(x)  # Final shape=(None, 34, 256)
 
-# # Fully connected layers
-# for dense_size in fully_connected_layers:
-#     x = Dense(dense_size, activation='relu', kernel_initializer='random_normal')(x)  # dense_size == 1024
-#     x = Dropout(dropout_p)(x)
+# # x = Flatten()(x)  # (None, 8704)
 
-
-# Output Layer
-predictions = Dense(num_of_classes, activation='softmax')(x) #softmax
-# Build model
-# optimizer = optimizers.Adam(learning_rate=0.1, decay=0.001)
-optimizer = 'adam' #'adam' RMSprop
-model = Model(inputs=inputs, outputs=predictions)
-model.compile(optimizer=optimizer, loss=loss, metrics=['accuracy'])  # Adam, categorical_crossentropy
-model.summary()
+# # # Fully connected layers
+# # for dense_size in fully_connected_layers:
+# #     x = Dense(dense_size, activation='relu', kernel_initializer='random_normal')(x)  # dense_size == 1024
+# #     x = Dropout(dropout_p)(x)
 
 
-model.fit(train_data, train_classes,
-        batch_size=256,
-        epochs=1000,
-        verbose=1)
-model.save("num_model2")
+# # Output Layer
+# predictions = Dense(num_of_classes, activation='softmax')(x) #softmax
+# # Build model
+# # optimizer = optimizers.Adam(learning_rate=0.1, decay=0.001)
+# optimizer = 'adam' #'adam' RMSprop
+# model = Model(inputs=inputs, outputs=predictions)
+# model.compile(optimizer=optimizer, loss=loss, metrics=['accuracy'])  # Adam, categorical_crossentropy
+# model.summary()
 
-# my_model = load_model("num_model")
+
+# model.fit(train_data, train_classes,
+#         batch_size=256,
+#         epochs=1000,
+#         verbose=1)
+# model.save("num_model2")
 
 
-# print("train_data:",train_data[:10])
-# print("length",len(train_data))
-# print("type",type(train_data))
-# # y_train = [x%2 for x in range(1,a+1)]
-# print("y_train:",y_train[:10])
-# print("length",len(y_train))
-# print("type",type(y_train))
-
+## 其他模型
 # param_grid=[{"kernel":["rbf"],"C":[0.1, 1, 10], "gamma": [1, 0.1, 0.01]},
 #             {"kernel":["poly"],"C": [0.1, 1, 10], "gamma": [1, 0.1, 0.01],"degree":[3,5,10],"coef0":[0,0.1,1]},
 #             {"kernel":["sigmoid"], "C": [0.1, 1, 10], "gamma": [1, 0.1, 0.01],"coef0":[0,0.1,1]}]
@@ -180,6 +169,28 @@ model.save("num_model2")
 # rf0.fit(train_data, y_train)
 # print("RF: ",rf0.oob_score_)
 
+## 测试阶段
+my_model = load_model("num_model")
+
+
+print("train_data:",train_data[:10])
+print("length",len(train_data))
+print("type",type(train_data))
+
+print("y_train:",y_train)
+print("length",len(y_train))
+print("type",type(y_train))
+
+
+data  = ['{:014b}'.format(x)  for x in range(1,a+1)]
+data = tk.texts_to_sequences(data)
+# data = pad_sequences(test_texts, maxlen=1014, padding='post')
+data = np.array(data, dtype='float32')
+print("data:",data[:10])
+print("length",len(data))
+print("type",type(data))
+y =  my_model.predict(data)
+print(y)
 
 # def test_model(test_texts):
 #     # print("3 test_texts:",test_texts[:3])
