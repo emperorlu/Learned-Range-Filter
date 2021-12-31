@@ -185,7 +185,7 @@ my_model = load_model("num_model")
 # data  = ['{:014b}'.format(x)  for x in range(1,a+1)]
 
 num = int(sys.argv[1]) 
-data = '{:014b}'.format(num)
+data = ['{:014b}'.format(num)]
 data = tk.texts_to_sequences(data)
 # data = pad_sequences(test_texts, maxlen=1014, padding='post')
 data = np.array(data, dtype='float32')
