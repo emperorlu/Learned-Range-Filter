@@ -201,7 +201,8 @@ my_model = load_model("num_model")
 min_num = int(sys.argv[1]) 
 max_num = int(sys.argv[2]) 
 def f(x):
-    data = tk.texts_to_sequences(x)
+    data = ['{:014b}'.format(x)]
+    data = tk.texts_to_sequences(data)
     data = np.array(data, dtype='float32')
     y = my_model.predict(data)
     prediction = y[0][1]
