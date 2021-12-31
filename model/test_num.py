@@ -78,8 +78,7 @@ conv_layers = [[256, 7, 3],
             [256, 7, 3],
             [256, 3, -1],
             [256, 3, -1],
-            [256, 3, -1],
-            [256, 3, -1],
+            # [256, 3, -1],
             [256, 3, 3]]
 
 fully_connected_layers = [64, 4]
@@ -109,7 +108,7 @@ inputs = Input(shape=(input_size,), name='input', dtype='int64')  # shape=(?, 10
 # Embedding
 x = embedding_layer(inputs)
 
-# x = GRU(64)(x)
+x = GRU(64)(x)
 # x = LSTM(64)(x)
 
 # Conv
