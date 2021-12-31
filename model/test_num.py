@@ -112,6 +112,7 @@ x = embedding_layer(inputs)
 # x = GRU(64)(x)
 # x = LSTM(64)(x)
 x = Bidirectional(LSTM(64, return_sequences=True))(x)
+x = Flatten()(x)
 # # Conv
 # # for filter_num, filter_size, pooling_size in conv_layers:
 # x = Conv1D(64, 4, kernel_initializer='random_normal')(x)
