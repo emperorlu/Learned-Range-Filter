@@ -177,7 +177,7 @@ print("train_data:",train_data[:10])
 print("length",len(train_data))
 print("type",type(train_data))
 
-print("y_train:",y_train)
+print("y_train:",y_train[:10])
 print("length",len(y_train))
 print("type",type(y_train))
 
