@@ -14,7 +14,7 @@ from tensorflow.keras.layers import Input, Embedding, Activation, Flatten, Dense
 from tensorflow.keras.layers import Conv1D, MaxPooling1D, Dropout
 from tensorflow.keras.models import Model, load_model
 from tensorflow.keras import optimizers
-from keras.layers import GRU, LSTM, Bidirectional, FM 
+from keras.layers import GRU, LSTM, Bidirectional
 from copy import deepcopy
 from tensorflow.keras.utils import to_categorical
 from sklearn.ensemble import RandomForestClassifier
