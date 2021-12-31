@@ -109,7 +109,7 @@ inputs = Input(shape=(input_size,), name='input', dtype='int64')  # shape=(?, 10
 # Embedding
 x = embedding_layer(inputs)
 
-x = GRU(64)(x)
+# x = GRU(64)(x)
 # x = LSTM(64)(x)
 
 # Conv
