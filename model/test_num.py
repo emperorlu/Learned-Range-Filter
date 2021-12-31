@@ -182,18 +182,19 @@ print("y_train:",y_train[:20])
 # print("type",type(y_train))
 
 
-data  = ['{:014b}'.format(x)  for x in range(1,2)]
+# data  = ['{:014b}'.format(x)  for x in range(1,2)]
 
-# num = int(sys.argv[1]) 
-# data = ['{:014b}'.format(num)]
+num = int(sys.argv[1]) 
+data = ['{:014b}'.format(num)]
 data = tk.texts_to_sequences(data)
 # data = pad_sequences(test_texts, maxlen=1014, padding='post')
 data = np.array(data, dtype='float32')
 y =  my_model.predict(data)
-print(y[:20])
-# print(y[1])
-# if y[1] > 0.9: print("Exist!", y[1])
-# if y[1] < 0.9: print("Not exist!", y[1])
+pre = y[0][1]
+# print(y[:20])
+print(y[0])
+if pre > 0.9: print("Exist!", pre)
+if pre < 0.9: print("Not exist!", pre)
 
 # def test_model(test_texts):
 #     # print("3 test_texts:",test_texts[:3])
