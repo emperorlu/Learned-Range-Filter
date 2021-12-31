@@ -216,6 +216,9 @@ print("Max Score:",max)
 if max > 0.9: print("Exist!")
 if max < 0.9: print("Not exist!")
 
+for i in range(min_num,max_num):
+    print(i, ":", -f(i))
+
 
 # def test_model(test_texts):
 #     # print("3 test_texts:",test_texts[:3])
