@@ -14,7 +14,7 @@ from tensorflow.keras.layers import Input, Embedding, Activation, Flatten, Dense
 from tensorflow.keras.layers import Conv1D, MaxPooling1D, Dropout
 from tensorflow.keras.models import Model, load_model
 from tensorflow.keras import optimizers
-from keras.layers import GRU, LSTM
+from keras.layers import GRU, LSTM, Bidirectional
 from copy import deepcopy
 from tensorflow.keras.utils import to_categorical
 from sklearn.ensemble import RandomForestClassifier
@@ -111,17 +111,18 @@ x = embedding_layer(inputs)
 
 # x = GRU(64)(x)
 # x = LSTM(64)(x)
-
-# Conv
-# for filter_num, filter_size, pooling_size in conv_layers:
-x = Conv1D(64, 4, kernel_initializer='random_normal')(x)
-x = Activation('relu')(x)
-# if pooling_size != -1:
-x = MaxPooling1D(pool_size=2)(x)  # Final shape=(None, 34, 256)
-x = Conv1D(64, 4, kernel_initializer='random_normal')(x)
-x = Activation('relu')(x)
-# if pooling_size != -1:
-x = MaxPooling1D(pool_size=2)(x)  # Final shape=(None, 34, 256)
+x = Bidirectional(LSTM(256, return_sequences=True))(x)
+x = Flatten()(x)
+# # Conv
+# # for filter_num, filter_size, pooling_size in conv_layers:
+# x = Conv1D(64, 4, kernel_initializer='random_normal')(x)
+# x = Activation('relu')(x)
+# # if pooling_size != -1:
+# x = MaxPooling1D(pool_size=2)(x)  # Final shape=(None, 34, 256)
+# x = Conv1D(64, 4, kernel_initializer='random_normal')(x)
+# x = Activation('relu')(x)
+# # if pooling_size != -1:
+# x = MaxPooling1D(pool_size=2)(x)  # Final shape=(None, 34, 256)
 
 
 x = Flatten()(x)  # (None, 8704)
