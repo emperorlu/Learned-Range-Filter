@@ -119,7 +119,7 @@ x = Bidirectional(LSTM(64, return_sequences=True))(x)
 # # if pooling_size != -1:
 # x = MaxPooling1D(pool_size=2)(x)  # Final shape=(None, 34, 256)
 # x = Conv1D(64, 4, kernel_initializer='random_normal')(x)
-x = Activation('relu')(x)
+# x = Activation('relu')(x)
 # # if pooling_size != -1:
 # x = MaxPooling1D(pool_size=2)(x)  # Final shape=(None, 34, 256)
 
