@@ -117,7 +117,7 @@ x = GRU(64)(x)
 # x = Conv1D(64, 4)(x)
 x = Activation('relu')(x)
 # if pooling_size != -1:
-x = MaxPooling1D(pool_size=2)(x)  # Final shape=(None, 34, 256)
+# x = MaxPooling1D(pool_size=2)(x)  # Final shape=(None, 34, 256)
 x = Flatten()(x)  # (None, 8704)
 
 # Fully connected layers
