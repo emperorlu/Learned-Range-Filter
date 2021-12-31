@@ -41,7 +41,7 @@ alphabet = "01"
 
 char_dict = {}
 for i, char in enumerate(alphabet):
-    char_dict[char] = i
+    char_dict[char] = i + 1
 
 tk.word_index = char_dict.copy()
 tk.word_index[tk.oov_token] = max(char_dict.values()) + 1
