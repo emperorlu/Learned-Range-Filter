@@ -126,10 +126,10 @@ x = Bidirectional(LSTM(64, return_sequences=True))(x)
 
 x = Flatten()(x)  # (None, 8704)
 
-# # Fully connected layers
-# for dense_size in fully_connected_layers:
-#     x = Dense(dense_size, activation='relu', kernel_initializer='random_normal')(x)  # dense_size == 1024
-#     x = Dropout(dropout_p)(x)
+# Fully connected layers
+for dense_size in fully_connected_layers:
+    x = Dense(dense_size, activation='relu', kernel_initializer='random_normal')(x)  # dense_size == 1024
+    x = Dropout(dropout_p)(x)
 
 
 # Output Layer
