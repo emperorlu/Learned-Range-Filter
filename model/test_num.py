@@ -177,23 +177,23 @@ my_model = load_model("num_model")
 # print("length",len(train_data))
 # print("type",type(train_data))
 
-# print("y_train:",y_train[:10])
+print("y_train:",y_train[:20])
 # print("length",len(y_train))
 # print("type",type(y_train))
 
 
-# data  = ['{:014b}'.format(x)  for x in range(1,a+1)]
+data  = ['{:014b}'.format(x)  for x in range(1,a+1)]
 
-num = int(sys.argv[1]) 
-data = ['{:014b}'.format(num)]
+# num = int(sys.argv[1]) 
+# data = ['{:014b}'.format(num)]
 data = tk.texts_to_sequences(data)
 # data = pad_sequences(test_texts, maxlen=1014, padding='post')
 data = np.array(data, dtype='float32')
 y =  my_model.predict(data)
-print(y)
-print(y[1])
-if y[1] > 0.9: print("Exist!", y[1])
-if y[1] < 0.9: print("Not exist!", y[1])
+print(y[:20])
+# print(y[1])
+# if y[1] > 0.9: print("Exist!", y[1])
+# if y[1] < 0.9: print("Not exist!", y[1])
 
 # def test_model(test_texts):
 #     # print("3 test_texts:",test_texts[:3])
