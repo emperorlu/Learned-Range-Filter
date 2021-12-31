@@ -113,9 +113,9 @@ x = embedding_layer(inputs)
 # x = LSTM(64)(x)
 # Bidirectional(
 x = LSTM(64, activation='relu', return_sequences=True)(x)
-x = Dropout(0.2)(x)
+# x = Dropout(0.2)(x)
 x = LSTM(64, activation='relu', return_sequences=False)(x)
-x = Dropout(0.2)(x)
+# x = Dropout(0.2)(x)
 
 # # Conv
 # # for filter_num, filter_size, pooling_size in conv_layers:
