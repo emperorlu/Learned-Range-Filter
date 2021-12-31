@@ -27,33 +27,33 @@ import sys
 import random
 
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3' 
-a = 10000
+# a = 10000
 
-tk = Tokenizer(num_words=None, char_level=True, oov_token='UNK') 
+# tk = Tokenizer(num_words=None, char_level=True, oov_token='UNK') 
 
-train_texts  = ['{:014b}'.format(x)  for x in range(1,a+1)]
-# random.shuffle(train_texts)
-adata=np.load('a.npy')
-y_train=adata.tolist()
+# train_texts  = ['{:014b}'.format(x)  for x in range(1,a+1)]
+# # random.shuffle(train_texts)
+# adata=np.load('a.npy')
+# y_train=adata.tolist()
 
-tk.fit_on_texts(train_texts)
-alphabet = "01"
+# tk.fit_on_texts(train_texts)
+# alphabet = "01"
 
-char_dict = {}
-for i, char in enumerate(alphabet):
-    char_dict[char] = i + 1
+# char_dict = {}
+# for i, char in enumerate(alphabet):
+#     char_dict[char] = i + 1
 
-tk.word_index = char_dict.copy()
-tk.word_index[tk.oov_token] = max(char_dict.values()) + 1
+# tk.word_index = char_dict.copy()
+# tk.word_index[tk.oov_token] = max(char_dict.values()) + 1
 
 
-train_texts = tk.texts_to_sequences(train_texts)
+# train_texts = tk.texts_to_sequences(train_texts)
 
-# Padding
-train_data = pad_sequences(train_texts, maxlen=14, padding='post')
+# # Padding
+# train_data = pad_sequences(train_texts, maxlen=14, padding='post')
 
-# Convert to numpy array
-train_data = np.array(train_data, dtype='float32')
+# # Convert to numpy array
+# train_data = np.array(train_data, dtype='float32')
 
 
 # 训练阶段
@@ -196,7 +196,7 @@ my_model = load_model("num_model")
 # if pre > 0.9: print("Exist!", pre)
 # if pre < 0.9: print("Not exist!", pre)
 
-
+tk = Tokenizer(num_words=None, char_level=True, oov_token='UNK') 
 ## 测试阶段 - Range filter
 min_num = int(sys.argv[1]) 
 max_num = int(sys.argv[2]) 
