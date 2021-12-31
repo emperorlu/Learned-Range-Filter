@@ -169,32 +169,52 @@ train_data = np.array(train_data, dtype='float32')
 # rf0.fit(train_data, y_train)
 # print("RF: ",rf0.oob_score_)
 
-## 测试阶段
+
 my_model = load_model("num_model")
 
+## 测试阶段 - filter
+# # print("train_data:",train_data[:10])
+# # print("length",len(train_data))
+# # print("type",type(train_data))
 
-# print("train_data:",train_data[:10])
-# print("length",len(train_data))
-# print("type",type(train_data))
-
-print("y_train:",y_train[:20])
-# print("length",len(y_train))
-# print("type",type(y_train))
+# print("y_train:",y_train[:20])
+# # print("length",len(y_train))
+# # print("type",type(y_train))
 
 
-# data  = ['{:014b}'.format(x)  for x in range(1,2)]
+# # data  = ['{:014b}'.format(x)  for x in range(1,2)]
 
-num = int(sys.argv[1]) 
-data = ['{:014b}'.format(num)]
-data = tk.texts_to_sequences(data)
-# data = pad_sequences(test_texts, maxlen=1014, padding='post')
-data = np.array(data, dtype='float32')
-y =  my_model.predict(data)
-pre = y[0][1]
-# print(y[:20])
-print(y[0])
-if pre > 0.9: print("Exist!", pre)
-if pre < 0.9: print("Not exist!", pre)
+# num = int(sys.argv[1]) 
+# data = ['{:014b}'.format(num)]
+# data = tk.texts_to_sequences(data)
+# # data = pad_sequences(test_texts, maxlen=1014, padding='post')
+# data = np.array(data, dtype='float32')
+# y =  my_model.predict(data)
+# pre = y[0][1]
+# # print(y[:20])
+# print(y[0])
+# if pre > 0.9: print("Exist!", pre)
+# if pre < 0.9: print("Not exist!", pre)
+
+
+## 测试阶段 - Range filter
+min_num = int(sys.argv[1]) 
+max_num = int(sys.argv[2]) 
+def f(x):
+    data = tk.texts_to_sequences(x)
+    data = np.array(data, dtype='float32')
+    y = my_model.predict(data)
+    prediction = y[0][1]
+    return -prediction
+
+
+minimum = optimize.minimize_scalar(f, bounds = (min_num, max_num), method = 'bounded', options={'maxiter': 1000})
+max = -f(minimum.x)
+print("Query Range: (",min_num,",",max_num,")")
+print("Max Score:",max)
+if max > 0.9: print("Exist!")
+if max < 0.9: print("Not exist!")
+
 
 # def test_model(test_texts):
 #     # print("3 test_texts:",test_texts[:3])
@@ -226,19 +246,4 @@ if pre < 0.9: print("Not exist!", pre)
 # # prediction = test_model(test_data)
 
 
-# def f(x):
-#     n = int(x)
-#     # # print("FFFF:",x,n)
-#     # # print("data:",test_data[n:n+1])
-#     # prediction = test_model(test_data[n:n+1])
-#     # # print("y:",prediction[0])
-#     # return -prediction[0]
-#     return -n
 
-
-# minimum = optimize.minimize_scalar(f, bounds = (min_num, max_num), method = 'bounded', options={'maxiter': 1000})
-# max = -f(minimum.x)
-# print("Query Range: (",min_num,",",max_num,")")
-# print("Max Score:",max)
-# if max > 0.9: print("Exist!")
-# if max < 0.9: print("Not exist!")
