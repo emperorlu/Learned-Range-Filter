@@ -111,11 +111,10 @@ x = embedding_layer(inputs)
 
 # x = GRU(64)(x)
 # x = LSTM(64)(x)
-x = LSTM(64, activation='relu', return_sequences=True)(x)
+x = Bidirectional(LSTM(64, activation='relu', return_sequences=True))(x)
 x = Dropout(0.2)(x)
-x = LSTM(64, activation='relu', return_sequences=True)(x)
+x = Bidirectional(LSTM(64, activation='relu', return_sequences=True))(x)
 x = Dropout(0.2)(x)
-# x = Bidirectional(LSTM(10))(x)
 
 # # Conv
 # # for filter_num, filter_size, pooling_size in conv_layers:
@@ -150,12 +149,9 @@ model.fit(train_data, train_classes,
         batch_size=256,
         epochs=1000,
         verbose=1)
-model.save("num_model")
+# model.save("num_model")
 
-# my_model = load_model("num_model")
-
-# test_df = pd.read_csv('num.csv')
-
+my_model = load_model("num_model")
 
 
 # print("train_data:",train_data[:10])
