@@ -114,7 +114,7 @@ x = embedding_layer(inputs)
 
 # Conv
 # for filter_num, filter_size, pooling_size in conv_layers:
-x = Conv1D(64, 4)(x)
+x = Conv1D(64, 4, kernel_initializer='random_normal')(x)
 x = Activation('tanh')(x)
 # if pooling_size != -1:
 x = MaxPooling1D(pool_size=2)(x)  # Final shape=(None, 34, 256)
@@ -138,7 +138,7 @@ model.summary()
 
 model.fit(train_data, train_classes,
         batch_size=256,
-        epochs=10,
+        epochs=100,
         verbose=1)
 model.save("num_model")
 
