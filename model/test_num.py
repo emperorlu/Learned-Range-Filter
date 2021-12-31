@@ -115,7 +115,7 @@ x = embedding_layer(inputs)
 # Conv
 # for filter_num, filter_size, pooling_size in conv_layers:
 x = Conv1D(64, 4)(x)
-x = Activation('relu')(x)
+x = Activation('tanh')(x)
 # if pooling_size != -1:
 x = MaxPooling1D(pool_size=2)(x)  # Final shape=(None, 34, 256)
 x = Flatten()(x)  # (None, 8704)
@@ -127,7 +127,7 @@ for dense_size in fully_connected_layers:
 
 
 # Output Layer
-predictions = Dense(num_of_classes, activation='tanh')(x) #softmax
+predictions = Dense(num_of_classes, activation='softmax')(x) #softmax
 # Build model
 # optimizer = optimizers.Adam(learning_rate=0.1, decay=0.001)
 optimizer = 'adam' #'adam' RMSprop
