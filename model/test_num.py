@@ -130,7 +130,7 @@ for dense_size in fully_connected_layers:
 predictions = Dense(num_of_classes, activation='softmax')(x) #softmax
 # Build model
 # optimizer = optimizers.Adam(learning_rate=0.1, decay=0.001)
-optimizer = 'RMSprop' #'adam'
+optimizer = 'adam' #'RMSprop'
 model = Model(inputs=inputs, outputs=predictions)
 model.compile(optimizer=optimizer, loss=loss, metrics=['accuracy'])  # Adam, categorical_crossentropy
 model.summary()
