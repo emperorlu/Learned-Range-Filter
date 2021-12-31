@@ -149,9 +149,9 @@ model.fit(train_data, train_classes,
         batch_size=256,
         epochs=1000,
         verbose=1)
-# model.save("num_model")
+model.save("num_model2")
 
-my_model = load_model("num_model")
+# my_model = load_model("num_model")
 
 
 # print("train_data:",train_data[:10])
