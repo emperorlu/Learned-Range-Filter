@@ -116,11 +116,9 @@ x = embedding_layer(inputs)
 # for filter_num, filter_size, pooling_size in conv_layers:
 x = Conv1D(64, 4, kernel_initializer='random_normal')(x)
 x = Activation('relu')(x)
-x = Activation('relu')(x)
 # if pooling_size != -1:
 x = MaxPooling1D(pool_size=2)(x)  # Final shape=(None, 34, 256)
 x = Conv1D(64, 4, kernel_initializer='random_normal')(x)
-x = Activation('relu')(x)
 x = Activation('relu')(x)
 # if pooling_size != -1:
 x = MaxPooling1D(pool_size=2)(x)  # Final shape=(None, 34, 256)
