@@ -190,8 +190,8 @@ data = tk.texts_to_sequences(data)
 # data = pad_sequences(test_texts, maxlen=1014, padding='post')
 data = np.array(data, dtype='float32')
 y =  my_model.predict(data)
-if y[1] > 0.9: print("Exist!")
-if y[1] < 0.9: print("Not exist!")
+if y[1] > 0.9: print("Exist!", y[1])
+if y[1] < 0.9: print("Not exist!", y[1])
 
 # def test_model(test_texts):
 #     # print("3 test_texts:",test_texts[:3])
