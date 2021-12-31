@@ -173,24 +173,25 @@ train_data = np.array(train_data, dtype='float32')
 my_model = load_model("num_model")
 
 
-print("train_data:",train_data[:10])
-print("length",len(train_data))
-print("type",type(train_data))
+# print("train_data:",train_data[:10])
+# print("length",len(train_data))
+# print("type",type(train_data))
 
-print("y_train:",y_train[:10])
-print("length",len(y_train))
-print("type",type(y_train))
+# print("y_train:",y_train[:10])
+# print("length",len(y_train))
+# print("type",type(y_train))
 
 
-data  = ['{:014b}'.format(x)  for x in range(1,a+1)]
+# data  = ['{:014b}'.format(x)  for x in range(1,a+1)]
+
+num = int(sys.argv[1]) 
+data = '{:014b}'.format(num)
 data = tk.texts_to_sequences(data)
 # data = pad_sequences(test_texts, maxlen=1014, padding='post')
 data = np.array(data, dtype='float32')
-print("data:",data[:10])
-print("length",len(data))
-print("type",type(data))
 y =  my_model.predict(data)
-print(y)
+if y[1] > 0.9: print("Exist!")
+if y[1] < 0.9: print("Not exist!")
 
 # def test_model(test_texts):
 #     # print("3 test_texts:",test_texts[:3])
