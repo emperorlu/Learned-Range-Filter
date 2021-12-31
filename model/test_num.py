@@ -115,7 +115,7 @@ x = GRU(64)(x)
 # Conv
 # for filter_num, filter_size, pooling_size in conv_layers:
 # x = Conv1D(64, 4)(x)
-x = Activation('relu')(x)
+# x = Activation('relu')(x)
 # if pooling_size != -1:
 # x = MaxPooling1D(pool_size=2)(x)  # Final shape=(None, 34, 256)
 x = Flatten()(x)  # (None, 8704)
