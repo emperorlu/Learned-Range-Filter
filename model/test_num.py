@@ -90,6 +90,7 @@ embedding_weights = []
 # Embedding weights
 # (70, 69)
 vocab_size = len(tk.word_index)
+print("vocab_size",vocab_size)
 embedding_weights.append(np.zeros(vocab_size))  # (0, 69)
 
 for char, i in tk.word_index.items():  # from index 1 to 69
