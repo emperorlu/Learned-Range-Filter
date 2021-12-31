@@ -112,7 +112,6 @@ x = embedding_layer(inputs)
 # x = GRU(64)(x)
 # x = LSTM(64)(x)
 x = Bidirectional(LSTM(64, return_sequences=True))(x)
-x = Flatten()(x)
 # # Conv
 # # for filter_num, filter_size, pooling_size in conv_layers:
 # x = Conv1D(64, 4, kernel_initializer='random_normal')(x)
@@ -125,7 +124,7 @@ x = Flatten()(x)
 # x = MaxPooling1D(pool_size=2)(x)  # Final shape=(None, 34, 256)
 
 
-# x = Flatten()(x)  # (None, 8704)
+x = Flatten()(x)  # (None, 8704)
 
 # # Fully connected layers
 # for dense_size in fully_connected_layers:
