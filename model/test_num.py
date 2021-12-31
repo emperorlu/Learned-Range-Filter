@@ -182,7 +182,7 @@ print("y_train:",y_train[:20])
 # print("type",type(y_train))
 
 
-data  = ['{:014b}'.format(x)  for x in range(1,a+1)]
+data  = ['{:014b}'.format(x)  for x in range(1,2)]
 
 # num = int(sys.argv[1]) 
 # data = ['{:014b}'.format(num)]
