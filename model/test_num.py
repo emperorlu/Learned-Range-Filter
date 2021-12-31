@@ -81,7 +81,7 @@ conv_layers = [[256, 7, 3],
             # [256, 3, -1],
             [256, 3, 3]]
 
-fully_connected_layers = [4]#[64, 4]
+fully_connected_layers = [64, 4]
 num_of_classes = 2
 dropout_p = 0.1
 
@@ -109,28 +109,28 @@ inputs = Input(shape=(input_size,), name='input', dtype='int64')  # shape=(?, 10
 # Embedding
 x = embedding_layer(inputs)
 
-x = GRU(64)(x)
+# x = GRU(64)(x)
 # x = LSTM(64)(x)
 
-# # Conv
-# # for filter_num, filter_size, pooling_size in conv_layers:
-# x = Conv1D(64, 4)(x)
-# x = Activation('relu')(x)
-# # if pooling_size != -1:
-# x = MaxPooling1D(pool_size=2)(x)  # Final shape=(None, 34, 256)
-# x = Flatten()(x)  # (None, 8704)
+# Conv
+# for filter_num, filter_size, pooling_size in conv_layers:
+x = Conv1D(64, 4)(x)
+x = Activation('relu')(x)
+# if pooling_size != -1:
+x = MaxPooling1D(pool_size=2)(x)  # Final shape=(None, 34, 256)
+x = Flatten()(x)  # (None, 8704)
 
-# # Fully connected layers
-# for dense_size in fully_connected_layers:
-#     x = Dense(dense_size, activation='relu')(x)  # dense_size == 1024
-#     x = Dropout(dropout_p)(x)
+# Fully connected layers
+for dense_size in fully_connected_layers:
+    x = Dense(dense_size, activation='relu')(x)  # dense_size == 1024
+    x = Dropout(dropout_p)(x)
 
 
 # Output Layer
 predictions = Dense(num_of_classes, activation='relu')(x) #softmax
 # Build model
 # optimizer = optimizers.Adam(learning_rate=0.1, decay=0.001)
-optimizer = 'adam' #'RMSprop'
+optimizer = 'RMSprop' #'adam'
 model = Model(inputs=inputs, outputs=predictions)
 model.compile(optimizer=optimizer, loss=loss, metrics=['accuracy'])  # Adam, categorical_crossentropy
 model.summary()
