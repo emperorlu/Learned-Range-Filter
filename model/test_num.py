@@ -75,13 +75,13 @@ train_classes = to_categorical(train_class_list)
 input_size = 14
 embedding_size = 3
 conv_layers = [[256, 7, 3],
-            [256, 7, 3],
+            # [256, 7, 3],
             [256, 3, -1],
-            [256, 3, -1],
+            # [256, 3, -1],
             # [256, 3, -1],
             [256, 3, 3]]
 
-fully_connected_layers = [64, 4]
+fully_connected_layers = [4]#[64, 4]
 num_of_classes = 2
 dropout_p = 0.1
 
