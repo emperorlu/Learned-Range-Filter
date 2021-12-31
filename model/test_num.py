@@ -217,7 +217,9 @@ if max > 0.9: print("Exist!")
 if max < 0.9: print("Not exist!")
 
 for i in range(min_num,max_num):
-    print(i, ":", -f(i))
+    max = -f(i)
+    if max > 0.9: print(i, ":", max, " Exist!")
+    if max < 0.9: print(i, ":", max, " Not Exist!")
 
 
 # def test_model(test_texts):
