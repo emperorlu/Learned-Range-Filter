@@ -238,7 +238,6 @@ for i in range(min_num,max_num):
 # min_num = int(sys.argv[1])  
 # max_num = int(sys.argv[2])
 
-
 # name=['url','score']
 # t = pd.read_csv('data.csv',names=name)
 # test_data = t[1:].values.tolist()
