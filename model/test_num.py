@@ -220,7 +220,6 @@ for i in range(min_num,max_num):
     max = -f(i)
     if max > 0.9: print(i, ":", max, " Exist!")
     if max < 0.9: print(i, ":", max, " Not Exist!")
-
 # def test_model(test_texts):
 #     # print("3 test_texts:",test_texts[:3])
 #     # print("length",len(test_texts))
