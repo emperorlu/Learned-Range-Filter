@@ -196,7 +196,6 @@ my_model = load_model("num_model")
 # if pre > 0.9: print("Exist!", pre)
 # if pre < 0.9: print("Not exist!", pre)
 
-
 ## 测试阶段 - Range filter
 min_num = int(sys.argv[1]) 
 max_num = int(sys.argv[2]) 
