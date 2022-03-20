@@ -31,6 +31,7 @@ def sample_show():
 
     show()
 
+    
 def plot_simple(X,Y):
     l = plot(X, Y)
     legend(handles=l)
