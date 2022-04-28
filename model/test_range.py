@@ -140,7 +140,7 @@ x= inputs
 # Bidirectional(
 x = LSTM(64, activation='relu', return_sequences=True)(x)
 # x = Dropout(0.2)(x)
-x = LSTM(64, activation='relu', return_sequences=False)(x)
+# x = LSTM(64, activation='relu', return_sequences=False)(x)
 # x = Dropout(0.2)(x)
 
 # # Conv
