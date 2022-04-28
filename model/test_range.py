@@ -55,10 +55,11 @@ tk = Tokenizer(num_words=None, char_level=True, oov_token='UNK')
 # stest=pd.DataFrame(columns=name,data=range_data)
 # stest.to_csv('range.csv',encoding='gbk')
 
-t = pd.read_csv('range.csv',names=['pre'])
-y_train = t.values.tolist()
+ty = pd.read_csv('range.csv',names=['pre'])
+y_train = ty.values.tolist()
 print(y_train)
-train_data = pd.read_csv('range.csv',names=['min','max'])
+tx = pd.read_csv('range.csv',names=['min','max'])
+train_data = tx.values.tolist()
 print(train_data)
 
 # train_texts = 
