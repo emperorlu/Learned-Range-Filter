@@ -57,6 +57,7 @@ tk = Tokenizer(num_words=None, char_level=True, oov_token='UNK')
 
 t = pd.read_csv('range.csv',names=['pre'])
 y_train = t.values.tolist()
+print(y_train)
 train_data = pd.read_csv('test.csv',names=['min','max'])
 print(train_data)
 
@@ -174,26 +175,26 @@ model.fit(train_data, train_classes,
         batch_size=256,
         epochs=1000,
         verbose=1)
-model.save("num_model2")
+model.save("num_mode_range")
 
 
-# 其他模型
-param_grid=[{"kernel":["rbf"],"C":[0.1, 1, 10], "gamma": [1, 0.1, 0.01]},
-            {"kernel":["poly"],"C": [0.1, 1, 10], "gamma": [1, 0.1, 0.01],"degree":[3,5,10],"coef0":[0,0.1,1]},
-            {"kernel":["sigmoid"], "C": [0.1, 1, 10], "gamma": [1, 0.1, 0.01],"coef0":[0,0.1,1]}]
+# # 其他模型
+# param_grid=[{"kernel":["rbf"],"C":[0.1, 1, 10], "gamma": [1, 0.1, 0.01]},
+#             {"kernel":["poly"],"C": [0.1, 1, 10], "gamma": [1, 0.1, 0.01],"degree":[3,5,10],"coef0":[0,0.1,1]},
+#             {"kernel":["sigmoid"], "C": [0.1, 1, 10], "gamma": [1, 0.1, 0.01],"coef0":[0,0.1,1]}]
 
-grid = GridSearchCV(svm.SVC(), param_grid=param_grid, cv=4, verbose=True)
-grid.fit(train_data,y_train)
-print('grid_best_params:',  grid.best_params_)
-print('grid.best_score_:', grid.best_score_)
+# grid = GridSearchCV(svm.SVC(), param_grid=param_grid, cv=4, verbose=True)
+# grid.fit(train_data,y_train)
+# print('grid_best_params:',  grid.best_params_)
+# print('grid.best_score_:', grid.best_score_)
 
-a = int(sys.argv[1]) 
-svmclassifier = svm.SVC(kernel='rbf', gamma=0.1, C=0.9, verbose=1)
-svmclassifier.fit(train_data, y_train)
-print("\nSCV: ",svmclassifier.score(train_data, y_train))
-rf0 = RandomForestClassifier(oob_score=True, random_state=100)
-rf0.fit(train_data, y_train)
-print("RF: ",rf0.oob_score_)
+# a = int(sys.argv[1]) 
+# svmclassifier = svm.SVC(kernel='rbf', gamma=0.1, C=0.9, verbose=1)
+# svmclassifier.fit(train_data, y_train)
+# print("\nSCV: ",svmclassifier.score(train_data, y_train))
+# rf0 = RandomForestClassifier(oob_score=True, random_state=100)
+# rf0.fit(train_data, y_train)
+# print("RF: ",rf0.oob_score_)
 
 
 
