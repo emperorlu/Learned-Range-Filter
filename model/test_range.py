@@ -112,29 +112,29 @@ num_of_classes = 2
 dropout_p = 0.1
 
 loss = 'categorical_crossentropy'
-embedding_weights = []
-# Embedding weights
-# (70, 69)
-vocab_size = len(tk.word_index)
-print("vocab_size",vocab_size)
-embedding_weights.append(np.zeros(vocab_size))  # (0, 69)
+# embedding_weights = []
+# # Embedding weights
+# # (70, 69)
+# vocab_size = len(tk.word_index)
+# print("vocab_size",vocab_size)
+# embedding_weights.append(np.zeros(vocab_size))  # (0, 69)
 
-for char, i in tk.word_index.items():  # from index 1 to 69
-    onehot = np.zeros(vocab_size)
-    onehot[i-1] = 1
-    embedding_weights.append(onehot)
+# for char, i in tk.word_index.items():  # from index 1 to 69
+#     onehot = np.zeros(vocab_size)
+#     onehot[i-1] = 1
+#     embedding_weights.append(onehot)
 
-embedding_weights = np.array(embedding_weights)
+# embedding_weights = np.array(embedding_weights)
 
 # Embedding layer Initialization
-embedding_layer = Embedding(vocab_size + 1,
-                            # embedding_size,
-                            input_length=input_size,
-                            weights=[embedding_weights])
-inputs = Input(shape=(input_size,), name='input', dtype='int64')  # shape=(?, 1014)
-# Embedding
-x = embedding_layer(inputs)
-
+# embedding_layer = Embedding(vocab_size + 1,
+#                             # embedding_size,
+#                             input_length=input_size,
+#                             weights=[embedding_weights])
+# inputs = Input(shape=(input_size,), name='input', dtype='int64')  # shape=(?, 1014)
+# # Embedding
+# x = embedding_layer(inputs)
+x= inputs
 # x = GRU(64)(x)
 # x = LSTM(64)(x)
 # Bidirectional(
