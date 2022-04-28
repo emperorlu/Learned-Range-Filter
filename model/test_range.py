@@ -38,7 +38,7 @@ y_train=adata.tolist()
 
 def in_range(x, y):
     for i in range(x, y+1):
-        if y_train[i] == 1:
+        if y_train[i-1] == 1:
             return 1
     return 0
 
