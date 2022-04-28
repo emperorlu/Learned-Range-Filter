@@ -28,169 +28,172 @@ import random
 
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3' 
 a = 10000
-a1 = a+1
+# a1 = a+1
 tk = Tokenizer(num_words=None, char_level=True, oov_token='UNK') 
 
-train_texts  = ['{:014b}'.format(x)  for x in range(1,a+1)]
-# random.shuffle(train_texts)
-adata=np.load('a.npy')
-y_train=adata.tolist()
+# train_texts  = ['{:014b}'.format(x)  for x in range(1,a+1)]
+# # random.shuffle(train_texts)
+# adata=np.load('a.npy')
+# y_train=adata.tolist()
 
-def in_range(x, y):
-    for i in range(x, y+1):
-        if y_train[i-1] == 1:
-            return 1
-    return 0
+# def in_range(x, y):
+#     for i in range(x, y+1):
+#         if y_train[i-1] == 1:
+#             return 1
+#     return 0
 
-range_data = []
-for i in range(3, 21):
-    for j in range(1,a1):
-        if i+j < a1:
-            p = in_range(j, i+j)
-            tmp = [j, i+j, p]
-            range_data.append(tmp)
-
-
-name=['min','max','pre']
-stest=pd.DataFrame(columns=name,data=range_data)
-stest.to_csv('range.csv',encoding='gbk')
-
-# t = pd.read_csv('num_score.csv',names=['score'])
-# y_train = t.values.tolist()
+# range_data = []
+# for i in range(3, 21):
+#     for j in range(1,a1):
+#         if i+j < a1:
+#             p = in_range(j, i+j)
+#             tmp = [j, i+j, p]
+#             range_data.append(tmp)
 
 
-tk.fit_on_texts(train_texts)
-alphabet = "01"
+# name=['min','max','pre']
+# stest=pd.DataFrame(columns=name,data=range_data)
+# stest.to_csv('range.csv',encoding='gbk')
 
-char_dict = {}
-for i, char in enumerate(alphabet):
-    char_dict[char] = i + 1
+t = pd.read_csv('range.csv',names=['pre'])
+y_train = t.values.tolist()
+train_data = pd.read_csv('test.csv',names=['min','max'])
+print(train_data)
 
-tk.word_index = char_dict.copy()
-tk.word_index[tk.oov_token] = max(char_dict.values()) + 1
+# train_texts = 
+
+# tk.fit_on_texts(train_texts)
+# alphabet = "01"
+
+# char_dict = {}
+# for i, char in enumerate(alphabet):
+#     char_dict[char] = i + 1
+
+# tk.word_index = char_dict.copy()
+# tk.word_index[tk.oov_token] = max(char_dict.values()) + 1
 
 
-train_texts = tk.texts_to_sequences(train_texts)
+# train_texts = tk.texts_to_sequences(train_texts)
 
-# Padding
-train_data = pad_sequences(train_texts, maxlen=14, padding='post')
+# # Padding
+# train_data = pad_sequences(train_texts, maxlen=14, padding='post')
 
 # Convert to numpy array
 train_data = np.array(train_data, dtype='float32')
 
 
 # 训练阶段
-# # =======================Get classes================
-# train_class_list = [x  for x in y_train]
+# =======================Get classes================
+train_class_list = [x  for x in y_train]
 
-# train_classes = to_categorical(train_class_list)
-# # print("1 train_data:",train_data[:10])
-# # print("length",len(train_data))
-# # print("type",type(train_data))
-# # print("2 train_classes:",train_classes[:10])
-# # print("length",len(train_classes))
-# # print("type",type(train_classes))
+train_classes = to_categorical(train_class_list)
+# print("1 train_data:",train_data[:10])
+# print("length",len(train_data))
+# print("type",type(train_data))
+# print("2 train_classes:",train_classes[:10])
+# print("length",len(train_classes))
+# print("type",type(train_classes))
 
-# # =====================Char CNN=======================
-# # parameter
-# input_size = 14
-# embedding_size = 3
-# conv_layers = [[256, 7, 3],
-#             # [256, 7, 3],
-#             [256, 3, -1],
-#             # [256, 3, -1],
-#             # [256, 3, -1],
-#             [256, 3, 3]]
+# =====================Char CNN=======================
+# parameter
+input_size = 14
+embedding_size = 3
+conv_layers = [[256, 7, 3],
+            # [256, 7, 3],
+            [256, 3, -1],
+            # [256, 3, -1],
+            # [256, 3, -1],
+            [256, 3, 3]]
 
-# fully_connected_layers = [64, 4]
-# num_of_classes = 2
-# dropout_p = 0.1
+fully_connected_layers = [64, 4]
+num_of_classes = 2
+dropout_p = 0.1
 
-# loss = 'categorical_crossentropy'
-# embedding_weights = []
-# # Embedding weights
-# # (70, 69)
-# vocab_size = len(tk.word_index)
-# print("vocab_size",vocab_size)
-# embedding_weights.append(np.zeros(vocab_size))  # (0, 69)
+loss = 'categorical_crossentropy'
+embedding_weights = []
+# Embedding weights
+# (70, 69)
+vocab_size = len(tk.word_index)
+print("vocab_size",vocab_size)
+embedding_weights.append(np.zeros(vocab_size))  # (0, 69)
 
-# for char, i in tk.word_index.items():  # from index 1 to 69
-#     onehot = np.zeros(vocab_size)
-#     onehot[i-1] = 1
-#     embedding_weights.append(onehot)
+for char, i in tk.word_index.items():  # from index 1 to 69
+    onehot = np.zeros(vocab_size)
+    onehot[i-1] = 1
+    embedding_weights.append(onehot)
 
-# embedding_weights = np.array(embedding_weights)
+embedding_weights = np.array(embedding_weights)
 
-# # Embedding layer Initialization
-# embedding_layer = Embedding(vocab_size + 1,
-#                             embedding_size,
-#                             input_length=input_size,
-#                             weights=[embedding_weights])
-# inputs = Input(shape=(input_size,), name='input', dtype='int64')  # shape=(?, 1014)
-# # Embedding
-# x = embedding_layer(inputs)
+# Embedding layer Initialization
+embedding_layer = Embedding(vocab_size + 1,
+                            embedding_size,
+                            input_length=input_size,
+                            weights=[embedding_weights])
+inputs = Input(shape=(input_size,), name='input', dtype='int64')  # shape=(?, 1014)
+# Embedding
+x = embedding_layer(inputs)
 
-# # x = GRU(64)(x)
-# # x = LSTM(64)(x)
-# # Bidirectional(
-# x = LSTM(64, activation='relu', return_sequences=True)(x)
-# # x = Dropout(0.2)(x)
-# x = LSTM(64, activation='relu', return_sequences=False)(x)
-# # x = Dropout(0.2)(x)
+# x = GRU(64)(x)
+# x = LSTM(64)(x)
+# Bidirectional(
+x = LSTM(64, activation='relu', return_sequences=True)(x)
+# x = Dropout(0.2)(x)
+x = LSTM(64, activation='relu', return_sequences=False)(x)
+# x = Dropout(0.2)(x)
 
-# # # Conv
-# # # for filter_num, filter_size, pooling_size in conv_layers:
-# # x = Conv1D(64, 4, kernel_initializer='random_normal')(x)
-# # x = Activation('relu')(x)
-# # # if pooling_size != -1:
-# # x = MaxPooling1D(pool_size=2)(x)  # Final shape=(None, 34, 256)
-# # x = Conv1D(64, 4, kernel_initializer='random_normal')(x)
-# # x = Activation('relu')(x)
-# # # if pooling_size != -1:
-# # x = MaxPooling1D(pool_size=2)(x)  # Final shape=(None, 34, 256)
+# # Conv
+# # for filter_num, filter_size, pooling_size in conv_layers:
+# x = Conv1D(64, 4, kernel_initializer='random_normal')(x)
+# x = Activation('relu')(x)
+# # if pooling_size != -1:
+# x = MaxPooling1D(pool_size=2)(x)  # Final shape=(None, 34, 256)
+# x = Conv1D(64, 4, kernel_initializer='random_normal')(x)
+# x = Activation('relu')(x)
+# # if pooling_size != -1:
+# x = MaxPooling1D(pool_size=2)(x)  # Final shape=(None, 34, 256)
 
-# # x = Flatten()(x)  # (None, 8704)
+# x = Flatten()(x)  # (None, 8704)
 
-# # # Fully connected layers
-# # for dense_size in fully_connected_layers:
-# #     x = Dense(dense_size, activation='relu', kernel_initializer='random_normal')(x)  # dense_size == 1024
-# #     x = Dropout(dropout_p)(x)
-
-
-# # Output Layer
-# predictions = Dense(num_of_classes, activation='softmax')(x) #softmax
-# # Build model
-# # optimizer = optimizers.Adam(learning_rate=0.1, decay=0.001)
-# optimizer = 'adam' #'adam' RMSprop
-# model = Model(inputs=inputs, outputs=predictions)
-# model.compile(optimizer=optimizer, loss=loss, metrics=['accuracy'])  # Adam, categorical_crossentropy
-# model.summary()
+# # Fully connected layers
+# for dense_size in fully_connected_layers:
+#     x = Dense(dense_size, activation='relu', kernel_initializer='random_normal')(x)  # dense_size == 1024
+#     x = Dropout(dropout_p)(x)
 
 
-# model.fit(train_data, train_classes,
-#         batch_size=256,
-#         epochs=1000,
-#         verbose=1)
-# model.save("num_model2")
+# Output Layer
+predictions = Dense(num_of_classes, activation='softmax')(x) #softmax
+# Build model
+# optimizer = optimizers.Adam(learning_rate=0.1, decay=0.001)
+optimizer = 'adam' #'adam' RMSprop
+model = Model(inputs=inputs, outputs=predictions)
+model.compile(optimizer=optimizer, loss=loss, metrics=['accuracy'])  # Adam, categorical_crossentropy
+model.summary()
 
 
-## 其他模型
-# param_grid=[{"kernel":["rbf"],"C":[0.1, 1, 10], "gamma": [1, 0.1, 0.01]},
-#             {"kernel":["poly"],"C": [0.1, 1, 10], "gamma": [1, 0.1, 0.01],"degree":[3,5,10],"coef0":[0,0.1,1]},
-#             {"kernel":["sigmoid"], "C": [0.1, 1, 10], "gamma": [1, 0.1, 0.01],"coef0":[0,0.1,1]}]
+model.fit(train_data, train_classes,
+        batch_size=256,
+        epochs=1000,
+        verbose=1)
+model.save("num_model2")
 
-# grid = GridSearchCV(svm.SVC(), param_grid=param_grid, cv=4, verbose=True)
-# grid.fit(train_data,y_train)
-# print('grid_best_params:',  grid.best_params_)
-# print('grid.best_score_:', grid.best_score_)
 
-# a = int(sys.argv[1]) 
-# svmclassifier = svm.SVC(kernel='rbf', gamma=0.1, C=0.9, verbose=1)
-# svmclassifier.fit(train_data, y_train)
-# print("\nSCV: ",svmclassifier.score(train_data, y_train))
-# rf0 = RandomForestClassifier(oob_score=True, random_state=100)
-# rf0.fit(train_data, y_train)
-# print("RF: ",rf0.oob_score_)
+# 其他模型
+param_grid=[{"kernel":["rbf"],"C":[0.1, 1, 10], "gamma": [1, 0.1, 0.01]},
+            {"kernel":["poly"],"C": [0.1, 1, 10], "gamma": [1, 0.1, 0.01],"degree":[3,5,10],"coef0":[0,0.1,1]},
+            {"kernel":["sigmoid"], "C": [0.1, 1, 10], "gamma": [1, 0.1, 0.01],"coef0":[0,0.1,1]}]
+
+grid = GridSearchCV(svm.SVC(), param_grid=param_grid, cv=4, verbose=True)
+grid.fit(train_data,y_train)
+print('grid_best_params:',  grid.best_params_)
+print('grid.best_score_:', grid.best_score_)
+
+a = int(sys.argv[1]) 
+svmclassifier = svm.SVC(kernel='rbf', gamma=0.1, C=0.9, verbose=1)
+svmclassifier.fit(train_data, y_train)
+print("\nSCV: ",svmclassifier.score(train_data, y_train))
+rf0 = RandomForestClassifier(oob_score=True, random_state=100)
+rf0.fit(train_data, y_train)
+print("RF: ",rf0.oob_score_)
 
 
 
