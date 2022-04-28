@@ -99,7 +99,7 @@ train_classes = to_categorical(train_class_list)
 # =====================Char CNN=======================
 # parameter
 input_size = 2
-embedding_size = 0
+# embedding_size = 0
 conv_layers = [[256, 7, 3],
             # [256, 7, 3],
             [256, 3, -1],
@@ -128,7 +128,7 @@ embedding_weights = np.array(embedding_weights)
 
 # Embedding layer Initialization
 embedding_layer = Embedding(vocab_size + 1,
-                            embedding_size,
+                            # embedding_size,
                             input_length=input_size,
                             weights=[embedding_weights])
 inputs = Input(shape=(input_size,), name='input', dtype='int64')  # shape=(?, 1014)
