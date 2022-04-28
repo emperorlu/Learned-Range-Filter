@@ -55,7 +55,7 @@ tk = Tokenizer(num_words=None, char_level=True, oov_token='UNK')
 # stest=pd.DataFrame(columns=name,data=range_data)
 # stest.to_csv('range.csv',encoding='gbk')
 
-ty = pd.read_csv('range.csv',names=['pre'])
+ty = pd.read_csv('range.csv',usecols=['pre'])
 y_train = ty.values.tolist()
 print(y_train[:10])
 tx = pd.read_csv('range.csv',usecols=['min','max']) #,header=None)
