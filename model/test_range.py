@@ -99,7 +99,7 @@ train_classes = to_categorical(train_class_list)
 # =====================Char CNN=======================
 # parameter
 input_size = 2
-embedding_size = 1
+embedding_size = 0
 conv_layers = [[256, 7, 3],
             # [256, 7, 3],
             [256, 3, -1],
