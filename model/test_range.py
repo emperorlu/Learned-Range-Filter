@@ -58,7 +58,7 @@ tk = Tokenizer(num_words=None, char_level=True, oov_token='UNK')
 t = pd.read_csv('range.csv',names=['pre'])
 y_train = t.values.tolist()
 print(y_train)
-train_data = pd.read_csv('test.csv',names=['min','max'])
+train_data = pd.read_csv('range.csv',names=['min','max'])
 print(train_data)
 
 # train_texts = 
