@@ -131,7 +131,7 @@ loss = 'categorical_crossentropy'
 #                             # embedding_size,
 #                             input_length=input_size,
 #                             weights=[embedding_weights])
-# inputs = Input(shape=(input_size,), name='input', dtype='int64')  # shape=(?, 1014)
+inputs = Input(shape=(input_size,), name='input', dtype='int64')  # shape=(?, 1014)
 # # Embedding
 # x = embedding_layer(inputs)
 x= inputs
