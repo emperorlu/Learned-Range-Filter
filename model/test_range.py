@@ -212,6 +212,9 @@ cancer_x = train_data[:200]
 cancer_y = y_train[:200]
 print('cancer_x:\n',cancer_x)
 print('cancer_y:\n',cancer_y)
+svmclassifier = svm.SVC(kernel='rbf', gamma=0.1, C=0.9, verbose=1)
+svmclassifier.fit(train_data, y_train)
+print("\nSVM: ",svmclassifier.score(train_data, y_train))
 cancer_target_pred = svm1.predict(cancer_x)
 print('预测结果为:\n',cancer_target_pred)
 true = np.sum(cancer_target_pred == cancer_y)
