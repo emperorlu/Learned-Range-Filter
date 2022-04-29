@@ -201,12 +201,16 @@ svm1 = joblib.load('svm.model')
 rf1 = joblib.load('rf.model')
 
 print('load over')
-# cancer_target_pred = svm1.predict(train_data)
-# print('预测前20个结果为：\n',cancer_target_pred[:20])
-# true = np.sum(cancer_target_pred == y_train )
-# print('预测对的结果数目为：', true)
-# print('预测错的的结果数目为：', y_train.shape[0]-true)
-# print('预测结果准确率为：', true/y_train.shape[0])
+cancer_x = train_data[:200]
+cancer_y = y_train[:200]
+cancer_target_pred = svm1.predict(cancer_x)
+print('预测前20个结果为：\n',cancer_target_pred)
+true = np.sum(cancer_target_pred == cancer_y)
+print('预测对的结果数目为：', true)
+print('预测错的的结果数目为：', 200-true)
+print('预测结果准确率为：', true/200)
+
+
 
 while True:
     min_num = input("min:")
