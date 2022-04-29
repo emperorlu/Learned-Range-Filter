@@ -269,7 +269,7 @@ p_train=adata.tolist()
 num01 = 0
 num0 = 0
 num1 = 0
-for i in range(0,len(p_train)+1):
+for i in range(len(p_train)):
     x = p_train[i] - y_train[i]
     if x == -1:
         num01 = num01+1
