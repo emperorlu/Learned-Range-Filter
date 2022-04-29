@@ -19,7 +19,7 @@ from copy import deepcopy
 from tensorflow.keras.utils import to_categorical
 from sklearn.ensemble import RandomForestClassifier
 from sklearn import svm
-from sklearn.externals import joblib
+import joblib
 # import plotly.graph_objects as go
 # import random
 # import plotly.io as pio
