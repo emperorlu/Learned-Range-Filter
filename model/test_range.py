@@ -237,10 +237,16 @@ for x in cancer_target_pred:
     if x == 1:
         num1 = num1+1
 print('num0: ', num0,' num1: ', num1)
-name=['pre']
-stest=pd.DataFrame(columns=name,data=cancer_target_pred)
-stest.to_csv('pre.csv',encoding='gbk')
+# name=['pre']
+# stest=pd.DataFrame(columns=name,data=cancer_target_pred)
+# stest.to_csv('pre.csv',encoding='gbk')
+ynp=np.array(cancer_target_pred)
+np.save('p.npy',ynp)  
+adata=np.load('p.npy')
+p_train=adata.tolist()
 true = np.sum(cancer_target_pred == cancer_y)
+ptrue = np.sum(cancer_target_pred == p_train)
+print('ptrue', ptrue)
 print('预测对的结果数目为：', true)
 print('预测错的的结果数目为：', y_len-true)
 print('预测结果准确率为：', true/y_len)
