@@ -211,8 +211,8 @@ rf1 = joblib.load('rf.model')
 print('load over')
 cancer_x = train_data[:200]
 cancer_y = y_train[:200]
-print('cancer_x:\n',cancer_x)
-print('cancer_y:\n',cancer_y)
+# print('cancer_x:\n',cancer_x)
+# print('cancer_y:\n',cancer_y)
 
 cancer_target_pred = svm1.predict(cancer_x)
 # print('预测结果为:\n',cancer_target_pred)
