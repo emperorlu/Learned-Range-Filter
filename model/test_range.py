@@ -237,6 +237,9 @@ for x in cancer_target_pred:
     if x == 1:
         num1 = num1+1
 print('num0: ', num0,' num1: ', num1)
+name=['y_train','pre']
+stest=pd.DataFrame(columns=name,data=[cancer_y,cancer_target_pred])
+stest.to_csv('range.csv',encoding='gbk')
 true = np.sum(cancer_target_pred == cancer_y)
 print('预测对的结果数目为：', true)
 print('预测错的的结果数目为：', y_len-true)
