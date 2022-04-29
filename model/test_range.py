@@ -63,6 +63,13 @@ tx = pd.read_csv('range.csv',usecols=['min','max']) #,header=None)
 train_data = tx.values.tolist()
 print(train_data[:10])
 
+data = pd.read_csv('range.csv')
+labels = data.iloc[:, -1]
+data = data.iloc[:, :-1] 
+data = np.array(data)
+print(data[:10])
+print(labels[:10])
+
 # train_texts = 
 
 # tk.fit_on_texts(train_texts)
