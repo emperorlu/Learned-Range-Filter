@@ -60,21 +60,21 @@ ty = pd.read_csv('range.csv',usecols=['pre'])
 y_train = ty.values.tolist()
 
 y_train = [x[0]  for x in y_train]
-train_class_list = [x  for x in y_train]
+# train_class_list = [x  for x in y_train]
 
-train_classes = to_categorical(train_class_list)
+# train_classes = to_categorical(train_class_list)
 print(y_train[:10])
-print(train_classes[:10])
+# print(train_classes[:10])
 tx = pd.read_csv('range.csv',usecols=['min','max']) #,header=None)
 train_data = tx.values.tolist()
 print(train_data[:10])
 
-data = pd.read_csv('range.csv',index_col=0)
-labels = data.iloc[:, -1]
-data = data.iloc[:, :-1] 
-data = np.array(data)
-print(data[:10])
-print(labels[:10])
+# data = pd.read_csv('range.csv',index_col=0)
+# labels = data.iloc[:, -1]
+# data = data.iloc[:, :-1] 
+# data = np.array(data)
+# print(data[:10])
+# print(labels[:10])
 
 # train_texts = 
 
@@ -200,14 +200,14 @@ train_data = np.array(train_data, dtype='float32')
 # a = int(sys.argv[1]) 
 
 
-# svmclassifier = svm.SVC(kernel='rbf', gamma=0.1, C=0.9, verbose=1)
-# svmclassifier.fit(train_data, y_train)
-# print("\nSVM: ",svmclassifier.score(train_data, y_train))
-# joblib.dump(svmclassifier, 'svm.model')
-# rf0 = RandomForestClassifier(oob_score=True, random_state=100)
-# rf0.fit(train_data, y_train)
-# print("RF: ",rf0.oob_score_)
-# joblib.dump(rf0, 'rf.model')
+svmclassifier = svm.SVC(kernel='rbf', gamma=0.1, C=0.9, verbose=1)
+svmclassifier.fit(train_data, y_train)
+print("\nSVM: ",svmclassifier.score(train_data, y_train))
+joblib.dump(svmclassifier, 'svm.model')
+rf0 = RandomForestClassifier(oob_score=True, random_state=100)
+rf0.fit(train_data, y_train)
+print("RF: ",rf0.oob_score_)
+joblib.dump(rf0, 'rf.model')
 
 
 svm1 = joblib.load('svm.model')
@@ -220,11 +220,11 @@ cancer_y = y_train[:200]
 # print('cancer_y:\n',cancer_y)
 
 cancer_target_pred = svm1.predict(cancer_x)
-# print('预测结果为:\n',cancer_target_pred)
-# true = np.sum(cancer_target_pred == cancer_y)
-# print('预测对的结果数目为：', true)
-# print('预测错的的结果数目为：', 200-true)
-# print('预测结果准确率为：', true/200)
+print('预测结果为:\n',cancer_target_pred)
+true = np.sum(cancer_target_pred == cancer_y)
+print('预测对的结果数目为：', true)
+print('预测错的的结果数目为：', 200-true)
+print('预测结果准确率为：', true/200)
 
 
 
