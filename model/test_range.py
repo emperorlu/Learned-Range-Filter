@@ -189,7 +189,7 @@ train_data = np.array(train_data, dtype='float32')
 # print('grid_best_params:',  grid.best_params_)
 # print('grid.best_score_:', grid.best_score_)
 
-a = int(sys.argv[1]) 
+# a = int(sys.argv[1]) 
 svmclassifier = svm.SVC(kernel='rbf', gamma=0.1, C=0.9, verbose=1)
 svmclassifier.fit(train_data, y_train)
 print("\nSVM: ",svmclassifier.score(train_data, y_train))
