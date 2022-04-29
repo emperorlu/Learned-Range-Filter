@@ -65,6 +65,14 @@ y_train = [x[0]  for x in y_train]
 # train_classes = to_categorical(train_class_list)
 print(y_train[:10])
 # print(train_classes[:10])
+num0 = 0
+num1 = 0
+for x in y_train:
+    if x == 0:
+        num0 = num0+1
+    if x == 1:
+        num1 = num1+1
+print('num0: ', num0,' num1: ', num1)
 tx = pd.read_csv('range.csv',usecols=['min','max']) #,header=None)
 train_data = tx.values.tolist()
 print(train_data[:10])
@@ -200,31 +208,39 @@ train_data = np.array(train_data, dtype='float32')
 # a = int(sys.argv[1]) 
 
 
-svmclassifier = svm.SVC(kernel='rbf', gamma=0.1, C=0.9, verbose=1)
-svmclassifier.fit(train_data, y_train)
-print("\nSVM: ",svmclassifier.score(train_data, y_train))
-joblib.dump(svmclassifier, 'svm.model')
-rf0 = RandomForestClassifier(oob_score=True, random_state=100)
-rf0.fit(train_data, y_train)
-print("RF: ",rf0.oob_score_)
-joblib.dump(rf0, 'rf.model')
+# svmclassifier = svm.SVC(kernel='rbf', gamma=0.1, C=0.9, verbose=1)
+# svmclassifier.fit(train_data, y_train)
+# print("\nSVM: ",svmclassifier.score(train_data, y_train))
+# joblib.dump(svmclassifier, 'svm.model')
+# rf0 = RandomForestClassifier(oob_score=True, random_state=100)
+# rf0.fit(train_data, y_train)
+# print("RF: ",rf0.oob_score_)
+# joblib.dump(rf0, 'rf.model')
 
 
 svm1 = joblib.load('svm.model')
 rf1 = joblib.load('rf.model')
 
 print('load over')
-cancer_x = train_data[:200]
-cancer_y = y_train[:200]
+cancer_x = train_data
+cancer_y = y_train
 # print('cancer_x:\n',cancer_x)
 # print('cancer_y:\n',cancer_y)
-
+y_len = len(cancer_y)
 cancer_target_pred = svm1.predict(cancer_x)
 print('预测结果为:\n',cancer_target_pred)
+num0 = 0
+num1 = 0
+for x in cancer_y:
+    if x == 0:
+        num0 = num0+1
+    if x == 1:
+        num1 = num1+1
+print('num0: ', num0,' num1: ', num1)
 true = np.sum(cancer_target_pred == cancer_y)
 print('预测对的结果数目为：', true)
-print('预测错的的结果数目为：', 200-true)
-print('预测结果准确率为：', true/200)
+print('预测错的的结果数目为：', y_len-true)
+print('预测结果准确率为：', true/y_len)
 
 
 
