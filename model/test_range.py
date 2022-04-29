@@ -265,11 +265,12 @@ train_data = np.array(train_data, dtype='float32')
 
 adata=np.load('p.npy')
 p_train=adata.tolist()
-c = p_train - y_train
+# c = p_train - y_train
 num01 = 0
 num0 = 0
 num1 = 0
-for x in c:
+for i in range(0,len(p_train)+1):
+    x = p_train[i] - y_train[i]
     if x == -1:
         num01 = num01+1
     if x == 0:
