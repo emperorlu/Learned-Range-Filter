@@ -58,8 +58,13 @@ tk = Tokenizer(num_words=None, char_level=True, oov_token='UNK')
 
 ty = pd.read_csv('range.csv',usecols=['pre'])
 y_train = ty.values.tolist()
-print(y_train[:10])
+
 y_train = [x[0]  for x in y_train]
+train_class_list = [x  for x in y_train]
+
+train_classes = to_categorical(train_class_list)
+print(y_train[:10])
+print(train_classes[:10])
 tx = pd.read_csv('range.csv',usecols=['min','max']) #,header=None)
 train_data = tx.values.tolist()
 print(train_data[:10])
