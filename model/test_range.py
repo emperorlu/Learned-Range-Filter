@@ -59,6 +59,7 @@ tk = Tokenizer(num_words=None, char_level=True, oov_token='UNK')
 ty = pd.read_csv('range.csv',usecols=['pre'])
 y_train = ty.values.tolist()
 print(y_train[:10])
+y_train = [x[0]  for x in y_train]
 tx = pd.read_csv('range.csv',usecols=['min','max']) #,header=None)
 train_data = tx.values.tolist()
 print(train_data[:10])
@@ -204,23 +205,21 @@ train_data = np.array(train_data, dtype='float32')
 # joblib.dump(rf0, 'rf.model')
 
 
-# svm1 = joblib.load('svm.model')
-# rf1 = joblib.load('rf.model')
+svm1 = joblib.load('svm.model')
+rf1 = joblib.load('rf.model')
 
 print('load over')
 cancer_x = train_data[:200]
 cancer_y = y_train[:200]
 print('cancer_x:\n',cancer_x)
 print('cancer_y:\n',cancer_y)
-svm1 = svm.SVC(kernel='rbf', gamma=0.1, C=0.9, verbose=1)
-svm1.fit(train_data, y_train)
-print("\nSVM: ",svm1.score(train_data, y_train))
+
 cancer_target_pred = svm1.predict(cancer_x)
-print('预测结果为:\n',cancer_target_pred)
-true = np.sum(cancer_target_pred == cancer_y)
-print('预测对的结果数目为：', true)
-print('预测错的的结果数目为：', 200-true)
-print('预测结果准确率为：', true/200)
+# print('预测结果为:\n',cancer_target_pred)
+# true = np.sum(cancer_target_pred == cancer_y)
+# print('预测对的结果数目为：', true)
+# print('预测错的的结果数目为：', 200-true)
+# print('预测结果准确率为：', true/200)
 
 
 
