@@ -52,11 +52,11 @@ for i in range(0, 21):
             range_data.append(tmp)
 
 
-name=['min','max','pre']
+name=['min','max','label']
 stest=pd.DataFrame(columns=name,data=range_data)
 stest.to_csv('more_range.csv',encoding='gbk')
 
-ty = pd.read_csv('more_range.csv',usecols=['pre'])
+ty = pd.read_csv('more_range.csv',usecols=['label'])
 y_train = ty.values.tolist()
 
 y_train = [x[0]  for x in y_train]
