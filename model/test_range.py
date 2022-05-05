@@ -30,6 +30,7 @@ import random
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3' 
 a = 10000
 a1 = a+1
+filename = 'more_range_lr.csv'
 # tk = Tokenizer(num_words=None, char_level=True, oov_token='UNK') 
 
 # train_texts  = ['{:014b}'.format(x)  for x in range(1,a+1)]
@@ -54,9 +55,9 @@ for i in range(0, 21):
 
 name=['min','max','label']
 stest=pd.DataFrame(columns=name,data=range_data)
-stest.to_csv('more_range.csv',encoding='gbk')
+stest.to_csv(filename,encoding='gbk')
 
-ty = pd.read_csv('more_range.csv',usecols=['label'])
+ty = pd.read_csv(filename,usecols=['label'])
 y_train = ty.values.tolist()
 
 y_train = [x[0]  for x in y_train]
@@ -73,7 +74,7 @@ for x in y_train:
     if x == 1:
         num1 = num1+1
 print('num0: ', num0,' num1: ', num1)
-tx = pd.read_csv('more_range.csv',usecols=['min','max']) #,header=None)
+tx = pd.read_csv(filename,usecols=['min','max']) #,header=None)
 train_data = tx.values.tolist()
 print(train_data[:10])
 
@@ -218,8 +219,9 @@ train_data = np.array(train_data, dtype='float32')
 # joblib.dump(rf0, 'rf2.model')
 
 
-svm1 = joblib.load('svm2.model')
-rf1 = joblib.load('rf2.model')
+# svm1 = joblib.load('svm2.model')
+# rf1 = joblib.load('rf2.model')
+model1 = joblib.load('rf2.model')
 
 print('load over')
 cancer_x = train_data
@@ -227,7 +229,7 @@ cancer_y = y_train
 # print('cancer_x:\n',cancer_x)
 # print('cancer_y:\n',cancer_y)
 y_len = len(cancer_y)
-cancer_target_pred = svm1.predict(cancer_x)
+cancer_target_pred = model1.predict(cancer_x)
 print('预测结果为:\n',cancer_target_pred[:10])
 num0 = 0
 num1 = 0
@@ -266,9 +268,9 @@ np.save('p.npy',ynp)
 
 adata=np.load('p.npy')
 p_train=adata.tolist()
-df = pd.read_csv('more_range.csv',encoding='gbk')
+df = pd.read_csv(filename,encoding='gbk')
 df['pre'] = p_train
-df.to_csv('more_range.csv',index=None)
+df.to_csv(filename,index=None)
 # c = p_train - y_train
 num01 = 0
 num0 = 0
