@@ -29,34 +29,34 @@ import random
 
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3' 
 a = 10000
-# a1 = a+1
-tk = Tokenizer(num_words=None, char_level=True, oov_token='UNK') 
+a1 = a+1
+# tk = Tokenizer(num_words=None, char_level=True, oov_token='UNK') 
 
 # train_texts  = ['{:014b}'.format(x)  for x in range(1,a+1)]
 # # random.shuffle(train_texts)
 # adata=np.load('a.npy')
 # y_train=adata.tolist()
 
-# def in_range(x, y):
-#     for i in range(x, y+1):
-#         if y_train[i-1] == 1:
-#             return 1
-#     return 0
+def in_range(x, y):
+    for i in range(x, y+1):
+        if y_train[i-1] == 1:
+            return 1
+    return 0
 
-# range_data = []
-# for i in range(3, 21):
-#     for j in range(1,a1):
-#         if i+j < a1:
-#             p = in_range(j, i+j)
-#             tmp = [j, i+j, p]
-#             range_data.append(tmp)
+range_data = []
+for i in range(0, 21):
+    for j in range(1,a1):
+        if i+j < a1:
+            p = in_range(j, i+j)
+            tmp = [j, i+j, p]
+            range_data.append(tmp)
 
 
-# name=['min','max','pre']
-# stest=pd.DataFrame(columns=name,data=range_data)
-# stest.to_csv('range.csv',encoding='gbk')
+name=['min','max','pre']
+stest=pd.DataFrame(columns=name,data=range_data)
+stest.to_csv('more_range.csv',encoding='gbk')
 
-ty = pd.read_csv('range.csv',usecols=['pre'])
+ty = pd.read_csv('more_range.csv',usecols=['pre'])
 y_train = ty.values.tolist()
 
 y_train = [x[0]  for x in y_train]
@@ -73,7 +73,7 @@ for x in y_train:
     if x == 1:
         num1 = num1+1
 print('num0: ', num0,' num1: ', num1)
-tx = pd.read_csv('range.csv',usecols=['min','max']) #,header=None)
+tx = pd.read_csv('more_range.csv',usecols=['min','max']) #,header=None)
 train_data = tx.values.tolist()
 print(train_data[:10])
 
@@ -208,14 +208,14 @@ train_data = np.array(train_data, dtype='float32')
 # a = int(sys.argv[1]) 
 
 
-# svmclassifier = svm.SVC(kernel='rbf', gamma=0.1, C=0.9, verbose=1)
-# svmclassifier.fit(train_data, y_train)
-# print("\nSVM: ",svmclassifier.score(train_data, y_train))
-# joblib.dump(svmclassifier, 'svm.model')
-# rf0 = RandomForestClassifier(oob_score=True, random_state=100)
-# rf0.fit(train_data, y_train)
-# print("RF: ",rf0.oob_score_)
-# joblib.dump(rf0, 'rf.model')
+svmclassifier = svm.SVC(kernel='rbf', gamma=0.1, C=0.9, verbose=1)
+svmclassifier.fit(train_data, y_train)
+print("\nSVM: ",svmclassifier.score(train_data, y_train))
+joblib.dump(svmclassifier, 'svm2.model')
+rf0 = RandomForestClassifier(oob_score=True, random_state=100)
+rf0.fit(train_data, y_train)
+print("RF: ",rf0.oob_score_)
+joblib.dump(rf0, 'rf2.model')
 
 
 # svm1 = joblib.load('svm.model')
