@@ -275,7 +275,7 @@ for i in range(len(p_train)):
     if x == 1:
         num1 = num1+1
 print('num-1: ', num01,' num0: ', num0,' num1: ', num1)
-
+print("RF: ",model1.oob_score_)
 while True:
     min_num = input("min:")
     min_num = int(min_num)  
