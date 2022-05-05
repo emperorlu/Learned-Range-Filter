@@ -34,8 +34,8 @@ a1 = a+1
 
 # train_texts  = ['{:014b}'.format(x)  for x in range(1,a+1)]
 # # random.shuffle(train_texts)
-# adata=np.load('a.npy')
-# y_train=adata.tolist()
+adata=np.load('a.npy')
+y_train=adata.tolist()
 
 def in_range(x, y):
     for i in range(x, y+1):
