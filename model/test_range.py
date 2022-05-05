@@ -255,16 +255,7 @@ np.save('p.npy',ynp)
 # print('预测错的的结果数目为：', y_len-true)
 # print('预测结果准确率为：', true/y_len)
 
-while True:
-    min_num = input("min:")
-    min_num = int(min_num)  
-    max_num = input("max:")
-    max_num = int(max_num)
-    pre_data = []
-    pre_data.append([min_num, max_num])
-    pre_data = np.array(pre_data, dtype='float32')
-    pre = model1.predict(pre_data)
-    print("pre_data: ", pre_data, "; pre:", pre)
+
 
 adata=np.load('p.npy')
 p_train=adata.tolist()
@@ -285,6 +276,16 @@ for i in range(len(p_train)):
         num1 = num1+1
 print('num-1: ', num01,' num0: ', num0,' num1: ', num1)
 
+while True:
+    min_num = input("min:")
+    min_num = int(min_num)  
+    max_num = input("max:")
+    max_num = int(max_num)
+    pre_data = []
+    pre_data.append([min_num, max_num])
+    pre_data = np.array(pre_data, dtype='float32')
+    pre = model1.predict(pre_data)
+    print("pre_data: ", pre_data, "; pre:", pre)
 
 
 
