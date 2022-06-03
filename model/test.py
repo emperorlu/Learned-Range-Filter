@@ -113,7 +113,6 @@ train_classes = to_categorical(train_class_list)
 # =====================Char CNN=======================
 # parameter
 
-
 # Embedding weights
 # (70, 69)
 vocab_size = len(tk.word_index)
