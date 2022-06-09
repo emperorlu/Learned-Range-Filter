@@ -231,8 +231,7 @@ cancer_y = y_train
 y_len = len(cancer_y)
 cancer_target_pred = model1.predict(cancer_x)
 print('预测结果为:\n',cancer_target_pred[:10])
-num0 = 0
-num1 = 0
+num0 = 0, num1 = 0
 for x in cancer_target_pred:
     if x == 0:
         num0 = num0+1
