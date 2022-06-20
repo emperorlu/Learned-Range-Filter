@@ -218,7 +218,6 @@ train_data = np.array(train_data, dtype='float32')
 # print("RF: ",rf0.oob_score_)
 # joblib.dump(rf0, 'rf2.model')
 
-
 # svm1 = joblib.load('svm2.model')
 # rf1 = joblib.load('rf2.model')
 model1 = joblib.load('rf2.model')
